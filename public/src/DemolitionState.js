@@ -1,5 +1,5 @@
-define(["Player", "Building1"],
-function(Player, Building1) {
+define(["Player", "Building1", "ShoutBubble"],
+function(Player, Building1, ShoutBubble) {
 	var safeMax = 3;
 	
 	function DemolitionState(preload, switchToDark) {
@@ -45,8 +45,7 @@ function(Player, Building1) {
 		addSmoke("smoke1", 590, 600-256);
 		addSmoke("smoke2", 324, 600-231);
 		
-		var bubble = this.bubble = new createjs.Bitmap();
-		bubble.x = -64; bubble.y = 600-205-415;
+		var bubble = this.bubble = new ShoutBubble(2000, preload);
 		view.addChild(bubble);
 	};
 	
@@ -60,44 +59,39 @@ function(Player, Building1) {
 		this.p.where = "OUTSIDE";
 		this.p.x = 400;
 	}
-	
-	DemolitionState.prototype.shout = function(s) {
-		if (this.lastShout === s) return;
-		this.bubble.alpha = 1;
-		this.bubble.image = this.preload.getResult("bubble_" + s);
-		createjs.Tween.removeTweens(this.bubble);
-		createjs.Tween.get(this.bubble).wait(2000).to({alpha:0}, 500);
-		this.lastShout = s;
-		this.hasShouted = true;
-	}
-	
+
 	DemolitionState.prototype.update = function() {
 		var player = this.player;
 		var p = this.p;
-		player.x = p.x;
-		player.y = this.b.yFor(p.where);
-
 		b1.image = this.preload.getResult(this.b.imageFor(p.where));
-		
-		if (this.dyn1.isPlaced) {
-			this.safeZone.visible = true;
-			if (player.x <= 200) {
-				this.safeTime -= 1/60;
-				this.shout("clear");
-			} else {
-				this.safeTime = safeMax;
-				if (this.hasShouted) this.shout("wait");
-			}
+	
+		if (!this.hasBlasted) {
+			player.x = p.x;
+			player.y = this.b.yFor(p.where);
 
-			if (this.safeTime <= 0) {
-				this.switchToDark();
+			if (this.dyn1.isPlaced) {
+				this.safeZone.visible = true;
+				if (player.x <= 200) {
+					this.safeTime -= 1/60;
+					this.bubble.shout("clear");
+				} else {
+					this.safeTime = safeMax;
+					if (this.bubble.hasShouted) this.bubble.shout("wait");
+				}
+
+				if (this.safeTime <= 0) {
+					this.switchToDark();
+				}
+			} else {
+				this.safeZone.visible = false;
 			}
 		} else {
-			this.safeZone.visible = false;
+			
 		}
 	};
 	
 	DemolitionState.prototype.blast = function() {
+		this.hasBlasted = true;
 		this.b.blast([this.dyn1]);
 		this.smokes.forEach(function (s) {
 			s.visible = true;

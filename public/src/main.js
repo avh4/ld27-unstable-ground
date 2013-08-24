@@ -1,5 +1,5 @@
-require(["domReady", "DemolitionState", "DarkState", "TitleState", "JobState"],
-function(domReady, DemolitionState, DarkState, TitleState, JobState) {
+require(["domReady", "DemolitionState", "DarkState", "TitleState", "JobState", "ThinkingState"],
+function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingState) {
 	domReady(function() {
 
 		var preload = new createjs.LoadQueue();
@@ -27,6 +27,17 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState) {
 			{id: "job_t1", src:"img/job_t1.png"},
 			{id: "bubble_clear", src:"img/bubble_clear.png"},
 			{id: "bubble_wait", src:"img/bubble_wait.png"},
+			{id: "bubble_10", src:"img/bubble_10.png"},
+			{id: "bubble_9", src:"img/bubble_9.png"},
+			{id: "bubble_8", src:"img/bubble_8.png"},
+			{id: "bubble_7", src:"img/bubble_7.png"},
+			{id: "bubble_6", src:"img/bubble_6.png"},
+			{id: "bubble_5", src:"img/bubble_5.png"},
+			{id: "bubble_4", src:"img/bubble_4.png"},
+			{id: "bubble_3", src:"img/bubble_3.png"},
+			{id: "bubble_2", src:"img/bubble_2.png"},
+			{id: "bubble_1", src:"img/bubble_1.png"},
+			{id: "thinking1", src:"img/thinking1.png"},
 		]);
 		
 		function handleComplete() {
@@ -37,27 +48,28 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState) {
 			stage.addChild(black);
 			
 			var state;
-			var demolitionState;
+			var lastState;
 			var darkState;
-			var titleState;
 			function switchTo(s) {
 				stage.removeAllChildren();
-				switch (s) {
-					case "TITLE": state = titleState; break;
-					case "JOB1": state = new JobState(preload, function() { switchTo("DEMOLITION") }); break;
-					case "DEMOLITION": state = demolitionState; break;
-					case "DARK": state = darkState; break;
-				}
+				state = s;
+				stage.addChild(state.view);
+				state.start();
+			}
+			function push(s) {
+				lastState = state;
+				state = s;
 				stage.addChild(state.view);
 				state.start();
 			}
 			
-			var titleState = new TitleState(preload, function() { switchTo("JOB1")});
+			function toThinking() { push(new ThinkingState(preload, function() { lastState.blast(); lastState.update(); })); };
+			function toDemolition() { switchTo(new DemolitionState(preload, toThinking)); };
+			function toJob() { switchTo(new JobState(preload, toDemolition))}
+			function toTitle() { switchTo(new TitleState(preload, toJob)); };
 			var darkState = new DarkState(preload);
-			// var demolitionState = new DemolitionState(preload, function() { switchTo(darkState) });
-			var demolitionState = new DemolitionState(preload, function() { demolitionState.blast() });
 			
-			switchTo("TITLE");
+			toTitle();
 			
 			var debug = new createjs.Text("Debug Info");
 			debug.color = "white";
