@@ -52,7 +52,7 @@ define(["Player"], function(Player) {
 			this.safeTime -= 1;
 		};
 		if (this.safeTime <= 0) {
-			createjs.Tween.get(eyelid).to({y:0}, 400);
+			createjs.Tween.get(eyelid).to({y:0}, 200);
 			this.safeTime = 60*3;
 		}
 	}

@@ -36,9 +36,6 @@ function(domReady, DemolitionState) {
 				debug.text = "x: " + state.p.x;
 			});
 			
-			keypress.combo("d", function() {
-			    createjs.Tween.get(eyelid).to({y:0}, 400);
-			});
 			keypress.combo("o", function() {
 			    createjs.Tween.get(eyelid).to({y:-631}, 1000);
 			});
