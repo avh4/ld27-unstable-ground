@@ -1,5 +1,6 @@
 define(["Player", "Building1"],
 function(Player, Building1) {
+	var safeMax = 3;
 	
 	function DemolitionState(preload, switchToDark) {
 		this.p = new Player();
@@ -12,7 +13,7 @@ function(Player, Building1) {
 		var background = new createjs.Bitmap(preload.getResult("demolition"));
 		this.view.addChild(background);
 		
-		var safeZone = new createjs.Shape();
+		var safeZone = this.safeZone = new createjs.Shape();
 		safeZone.graphics.beginFill("green").drawRect(0, 500, 200, 30);
 		this.view.addChild(safeZone);
 
@@ -23,6 +24,7 @@ function(Player, Building1) {
 		var dyn1 = new createjs.Shape();
 		dyn1.graphics.beginFill("pink").drawRect(-15, -20, 30, 30);
 		dyn1.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
+		dyn1.isPlaced = false;
 		this.view.addChild(dyn1);
 		this.dyn1 = dyn1;
 		
@@ -46,11 +48,11 @@ function(Player, Building1) {
 	};
 	
 	DemolitionState.prototype.debug = function() {
-		return "x: " + this.p.x;
+		return "x: " + this.p.x + "  safeTime: " + this.safeTime.toFixed(1);
 	};
 	
 	DemolitionState.prototype.start = function() {
-		this.safeTime = 60*3;
+		this.safeTime = safeMax;
 		this.dyn1.visible = false;
 		this.p.where = "OUTSIDE";
 		this.p.x = 400;
@@ -64,12 +66,19 @@ function(Player, Building1) {
 
 		b1.image = this.preload.getResult(this.b.imageFor(p.where));
 		
-		if (player.x <= 200) {
-			this.safeTime -= 1;
-		};
-		if (this.safeTime <= 0) {
-			this.switchToDark();
-			this.safeTime = 60*3;
+		if (this.dyn1.isPlaced) {
+			this.safeZone.visible = true;
+			if (player.x <= 200) {
+				this.safeTime -= 1/60;
+			} else {
+				this.safeTime = safeMax;
+			}
+
+			if (this.safeTime <= 0) {
+				this.switchToDark();
+			}
+		} else {
+			this.safeZone.visible = false;
 		}
 	};
 	
@@ -102,6 +111,7 @@ function(Player, Building1) {
 	DemolitionState.prototype.spaceButton = function() {
 		this.dyn1.x = this.player.x; this.dyn1.y = this.player.y;
 		this.dyn1.visible = true;
+		this.dyn1.isPlaced = true;
 	}
 	
 	return DemolitionState;
