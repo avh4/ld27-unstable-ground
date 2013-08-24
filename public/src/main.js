@@ -1,5 +1,5 @@
-require(["domReady", "DemolitionState", "DarkState", "TitleState"],
-function(domReady, DemolitionState, DarkState, TitleState) {
+require(["domReady", "DemolitionState", "DarkState", "TitleState", "JobState"],
+function(domReady, DemolitionState, DarkState, TitleState, JobState) {
 	domReady(function() {
 
 		var preload = new createjs.LoadQueue();
@@ -23,6 +23,8 @@ function(domReady, DemolitionState, DarkState, TitleState) {
 			{id: "dl1", src:"img/DL1.png"},
 			{id: "smoke1", src:"img/smoke1.png"},
 			{id: "smoke2", src:"img/smoke2.png"},
+			{id: "job1", src:"img/job1.png"},
+			{id: "job_t1", src:"img/job_t1.png"},
 		]);
 		
 		function handleComplete() {
@@ -37,9 +39,10 @@ function(domReady, DemolitionState, DarkState, TitleState) {
 			var darkState;
 			var titleState;
 			function switchTo(s) {
-				stage.clear();
+				stage.removeAllChildren();
 				switch (s) {
 					case "TITLE": state = titleState; break;
+					case "JOB1": state = new JobState(preload, function() { switchTo("DEMOLITION") }); break;
 					case "DEMOLITION": state = demolitionState; break;
 					case "DARK": state = darkState; break;
 				}
@@ -47,7 +50,7 @@ function(domReady, DemolitionState, DarkState, TitleState) {
 				state.start();
 			}
 			
-			var titleState = new TitleState(preload, function() { switchTo("DEMOLITION")});
+			var titleState = new TitleState(preload, function() { switchTo("JOB1")});
 			var darkState = new DarkState(preload);
 			// var demolitionState = new DemolitionState(preload, function() { switchTo(darkState) });
 			var demolitionState = new DemolitionState(preload, function() { demolitionState.blast() });
