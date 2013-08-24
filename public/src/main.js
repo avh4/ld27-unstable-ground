@@ -38,6 +38,7 @@ function(domReady, DemolitionState, DarkState) {
 			switchTo(darkState);
 			
 			var debug = new createjs.Text("Debug Info");
+			debug.color = "white";
 			stage.addChild(debug);
 			
 			createjs.Ticker.setFPS(60);

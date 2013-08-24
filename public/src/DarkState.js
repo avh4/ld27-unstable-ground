@@ -2,6 +2,7 @@ define([], function() {
 	
 	function DarkState(preload, switchToDark) {
 		var th = this;
+		this.t = 0;
 		this.view = new createjs.Container();
 		
 		var eyelid = new createjs.Bitmap(preload.getResult("eyelid_top"));
@@ -29,7 +30,7 @@ define([], function() {
 		player.graphics.beginFill("#880000").drawRect(-34/2, -60, 34, 60);
 		player.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
 		player.x = 700; player.y = 300;
-		this.view.addChild(player);
+		this.main.addChild(player);
 		this.player = player;
 
 		addCloud("c1",  237, 0, 15);
@@ -38,7 +39,7 @@ define([], function() {
 	};
 	
 	DarkState.prototype.debug = function() {
-		return "";
+		return "T: " + Math.round(this.t * 10) / 10;
 	}
 	
 	DarkState.prototype.start = function() {
@@ -52,6 +53,16 @@ define([], function() {
 			c.x += c.vx;
 			if (c.x > 800) c.x = -800;
 		});
+		
+		this.t += 1/60;
+		var vx = Math.sin(this.t*60/4);
+		vx *= (vx < 0) ? .8 : 4;
+		this.player.x -= vx;
+		
+		if (this.t > 10) {
+			createjs.Tween.get(this.eyelid).to({y:-631}, 400);
+			createjs.Tween.get(this.main).to({alpha:0}, 300);
+		}
 	}
 	
 	DarkState.prototype.leftButton = function() {
