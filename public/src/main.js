@@ -1,11 +1,14 @@
-require(["domReady", "DemolitionState", "DarkState"],
-function(domReady, DemolitionState, DarkState) {
+require(["domReady", "DemolitionState", "DarkState", "TitleState"],
+function(domReady, DemolitionState, DarkState, TitleState) {
 	domReady(function() {
 
-		var queue = new createjs.LoadQueue();
-		queue.installPlugin(createjs.Sound);
-		queue.addEventListener("complete", handleComplete);
-		queue.loadManifest([
+		var preload = new createjs.LoadQueue();
+		preload.installPlugin(createjs.Sound);
+		preload.addEventListener("complete", handleComplete);
+		preload.loadManifest([
+			{id: "title", src:"img/title.png"},
+			{id: "t1t", src:"img/t1t.png"},
+			{id: "t1s", src:"img/t1s.png"},
 			{id: "eyelid_top", src:"img/eyelid_top.png"},
 			{id: "demolition", src:"img/demolition.png"},
 			{id: "b1", src:"img/b1.png"},
@@ -30,18 +33,26 @@ function(domReady, DemolitionState, DarkState) {
 			stage.addChild(black);
 			
 			var state;
+			var demolitionState;
+			var darkState;
+			var titleState;
 			function switchTo(s) {
-				state = s;
+				stage.clear();
+				switch (s) {
+					case "TITLE": state = titleState; break;
+					case "DEMOLITION": state = demolitionState; break;
+					case "DARK": state = darkState; break;
+				}
+				stage.addChild(state.view);
 				state.start();
-			}			
+			}
 			
-			var darkState = new DarkState(queue);
-			// var demolitionState = new DemolitionState(queue, function() { switchTo(darkState) });
-			var demolitionState = new DemolitionState(queue, function() { demolitionState.blast() });
-			stage.addChild(demolitionState.view);
-			stage.addChild(darkState.view);
+			var titleState = new TitleState(preload, function() { switchTo("DEMOLITION")});
+			var darkState = new DarkState(preload);
+			// var demolitionState = new DemolitionState(preload, function() { switchTo(darkState) });
+			var demolitionState = new DemolitionState(preload, function() { demolitionState.blast() });
 			
-			switchTo(demolitionState);
+			switchTo("TITLE");
 			
 			var debug = new createjs.Text("Debug Info");
 			debug.color = "white";

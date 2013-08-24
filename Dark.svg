@@ -15,9 +15,32 @@
    id="svg4239"
    version="1.1"
    inkscape:version="0.48.2 r9819"
-   sodipodi:docname="New document 13">
+   sodipodi:docname="Dark.svg">
   <defs
      id="defs4241">
+    <pattern
+       inkscape:stockid="Checkerboard"
+       id="Checkerboard"
+       patternTransform="translate(0,0) scale(10,10)"
+       height="2"
+       width="2"
+       patternUnits="userSpaceOnUse"
+       inkscape:collect="always">
+      <rect
+         id="rect5904"
+         height="1"
+         width="1"
+         y="0"
+         x="0"
+         style="fill:black;stroke:none" />
+      <rect
+         id="rect5906"
+         height="1"
+         width="1"
+         y="1"
+         x="1"
+         style="fill:black;stroke:none" />
+    </pattern>
     <filter
        id="filter4937"
        inkscape:menu="Textures"
@@ -351,6 +374,69 @@
          stdDeviation="4.8857142"
          id="feGaussianBlur5084" />
     </filter>
+    <filter
+       id="filter6615"
+       inkscape:menu-tooltip="Transparent plastic with deep colors"
+       inkscape:menu="Bevels"
+       inkscape:label="Deep colors plastic"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur6617"
+         in="SourceGraphic"
+         result="result6"
+         stdDeviation="10" />
+      <feComposite
+         id="feComposite6619"
+         in2="SourceGraphic"
+         in="result6"
+         operator="xor" />
+      <feGaussianBlur
+         id="feGaussianBlur6621"
+         result="result2"
+         stdDeviation="10" />
+      <feComposite
+         id="feComposite6623"
+         in2="SourceGraphic"
+         operator="atop"
+         result="result91" />
+      <feComposite
+         id="feComposite6625"
+         in2="result91"
+         result="result4"
+         in="result2"
+         operator="xor" />
+      <feGaussianBlur
+         id="feGaussianBlur6627"
+         in="result4"
+         result="result3"
+         stdDeviation="5" />
+      <feSpecularLighting
+         id="feSpecularLighting6629"
+         lighting-color="rgb(255,255,255)"
+         in="result3"
+         result="result5"
+         specularExponent="35"
+         specularConstant="3"
+         surfaceScale="12">
+        <feDistantLight
+           id="feDistantLight6631"
+           elevation="45"
+           azimuth="235" />
+      </feSpecularLighting>
+      <feComposite
+         id="feComposite6633"
+         in2="result5"
+         in="SourceGraphic"
+         k3="0.7"
+         k2="0.8"
+         operator="arithmetic"
+         result="result7" />
+      <feComposite
+         id="feComposite6635"
+         in2="SourceGraphic"
+         in="result7"
+         operator="in" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -360,8 +446,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="293.57143"
-     inkscape:cy="234.28571"
+     inkscape:cx="395"
+     inkscape:cy="138.57143"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -499,7 +585,10 @@ VbvTuR7HcrN52Wq3fzEugK/Q6P8AC0bkKu1WTLEAAAAASUVORK5CYII=
     <g
        id="g4957"
        transform="matrix(1.3604651,0,0,1.7625,-102.26744,-459.69403)"
-       style="opacity:0.71982759">
+       style="opacity:0.71982759"
+       inkscape:export-filename="/Users/ld27/Desktop/Projects/LD27/c2.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <path
          transform="translate(0,452.36218)"
          d="M 421.42857,181.42857 C 421.42857,197.20814 352.6723,210 267.85715,210 c -84.81516,0 -153.57143,-12.79186 -153.57143,-28.57143 0,-15.77956 68.75627,-28.57142 153.57143,-28.57142 84.81515,0 153.57142,12.79186 153.57142,28.57142 z"
@@ -520,10 +609,16 @@ VbvTuR7HcrN52Wq3fzEugK/Q6P8AC0bkKu1WTLEAAAAASUVORK5CYII=
        sodipodi:rx="206.42857"
        sodipodi:ry="25.714285"
        d="m 690.00002,488.57144 a 206.42857,25.714285 0 1 1 -412.85715,0 206.42857,25.714285 0 1 1 412.85715,0 z"
-       transform="translate(0,452.36218)" />
+       transform="translate(0,452.36218)"
+       inkscape:export-filename="/Users/ld27/Desktop/Projects/LD27/c5.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <g
        id="g5051"
-       style="filter:url(#filter5082);opacity:0.31896552">
+       style="filter:url(#filter5082);opacity:0.31896552"
+       inkscape:export-filename="/Users/ld27/Desktop/Projects/LD27/c3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <path
          transform="translate(0,452.36218)"
          d="m 781.42856,290.71429 a 262.14285,63.57143 0 1 1 -524.28571,0 262.14285,63.57143 0 1 1 524.28571,0 z"
@@ -537,7 +632,10 @@ VbvTuR7HcrN52Wq3fzEugK/Q6P8AC0bkKu1WTLEAAAAASUVORK5CYII=
     </g>
     <g
        id="g5086"
-       style="opacity:0.85344828">
+       style="opacity:0.85344828"
+       inkscape:export-filename="/Users/ld27/Desktop/Projects/LD27/c1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <path
          transform="translate(0,452.36218)"
          d="m 627.14285,70.714287 a 150,35 0 1 1 -300,0 150,35 0 1 1 300,0 z"
@@ -551,7 +649,10 @@ VbvTuR7HcrN52Wq3fzEugK/Q6P8AC0bkKu1WTLEAAAAASUVORK5CYII=
     </g>
     <g
        id="g5048"
-       style="opacity:0.32327586">
+       style="opacity:0.32327586"
+       inkscape:export-filename="/Users/ld27/Desktop/Projects/LD27/c4.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <path
          transform="translate(0,452.36218)"
          d="m 305.71429,370.71429 a 205,66.428574 0 1 1 -410,0 205,66.428574 0 1 1 410,0 z"
@@ -562,6 +663,26 @@ VbvTuR7HcrN52Wq3fzEugK/Q6P8AC0bkKu1WTLEAAAAASUVORK5CYII=
          id="path4966"
          style="opacity:0.71982756999999997;fill:#841414;fill-opacity:1;stroke:none;filter:url(#filter5028)"
          sodipodi:type="arc" />
+    </g>
+    <g
+       id="g6577"
+       style="filter:url(#filter6615)"
+       inkscape:export-filename="/Users/ld27/Desktop/Projects/LD27/f1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         style="opacity:0.85344825000000002;fill:#841414;fill-opacity:1;stroke:none"
+         id="rect6564"
+         width="837.14288"
+         height="37.142857"
+         x="-22.857143"
+         y="444.28571"
+         transform="translate(0,452.36218)" />
+      <path
+         transform="translate(0,452.36218)"
+         id="rect5108"
+         d="m -22.857143,444.28571 837.142883,0 0,37.14285 -837.142883,0 z"
+         style="opacity:0.85344825;fill:url(#Checkerboard);fill-opacity:1;stroke:none" />
     </g>
   </g>
 </svg>
