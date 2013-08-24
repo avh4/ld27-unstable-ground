@@ -18,33 +18,40 @@ function(domReady, Player) {
 			
 			var stage = new createjs.Stage("canvas");
 			
+			var black = new createjs.Shape();
+			black.graphics.beginFill("black").drawRect(0, 0, 800, 600);
+			stage.addChild(black);
+			
+			var demolition = new createjs.Container();
+			stage.addChild(demolition);
+			
 			var background = new createjs.Bitmap(queue.getResult("demolition"));
-			stage.addChild(background);
+			demolition.addChild(background);
 			
 			var safeZone = new createjs.Shape();
 			safeZone.graphics.beginFill("green").drawRect(0, 500, 200, 30);
-			stage.addChild(safeZone);
+			demolition.addChild(safeZone);
 
 			b1i = new createjs.Bitmap(queue.getResult("b1i"));
 			b1i.x = 418; b1i.y = 200;
-			stage.addChild(b1i);
+			demolition.addChild(b1i);
 			
 			var dyn1 = new createjs.Shape();
 			dyn1.graphics.beginFill("pink").drawRect(-15, -20, 30, 30);
 			dyn1.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
 			dyn1.visible = false;
-			stage.addChild(dyn1);
+			demolition.addChild(dyn1);
 			
 			b1 = new createjs.Bitmap(queue.getResult("b1"));
 			b1.x = 418 + 1; b1.y = 200 + 2;
-			stage.addChild(b1);
+			demolition.addChild(b1);
 
 			var player = new createjs.Shape();
 			player.graphics.beginFill("#ff0000").drawRect(-34/2, -60, 34, 60);
 			player.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
 			player.y = 500;
 			player.x = 400;
-			stage.addChild(player);
+			demolition.addChild(player);
 			
 			eyelid = new createjs.Bitmap(queue.getResult("eyelid_top"));
 			eyelid.y = -631;
