@@ -1,6 +1,7 @@
 define([], function() {
 	
 	function DarkState(preload, switchToDark) {
+		var th = this;
 		this.view = new createjs.Container();
 		
 		var eyelid = new createjs.Bitmap(preload.getResult("eyelid_top"));
@@ -13,9 +14,27 @@ define([], function() {
 		this.main.alpha = 0;
 		this.view.addChild(this.main);
 
-		var background = new createjs.Bitmap(preload.getResult("dark1"));
-		background.x = -117;
-		this.main.addChild(background);
+		this.clouds = [];
+		function addCloud(img, x, y, vx) {
+			var c = new createjs.Bitmap(preload.getResult(img));
+			c.x = x; c.y = y;
+			c.vx = vx;
+			th.clouds.push(c);
+			th.main.addChild(c);
+		}
+		addCloud("c2", -117, 600-255-278, 5);
+		addCloud("c4", -227, 600- 96-265, 10);
+		
+		var player = new createjs.Shape();
+		player.graphics.beginFill("#880000").drawRect(-34/2, -60, 34, 60);
+		player.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
+		player.x = 700; player.y = 300;
+		this.view.addChild(player);
+		this.player = player;
+
+		addCloud("c1",  237, 0, 15);
+		addCloud("c5",  153, 600- 60-102, 15);
+		addCloud("c3",   88, 600-170-277, 20);		
 	};
 	
 	DarkState.prototype.debug = function() {
@@ -29,6 +48,10 @@ define([], function() {
 	}
 	
 	DarkState.prototype.update = function() {
+		this.clouds.forEach(function (c) {
+			c.x += c.vx;
+			if (c.x > 800) c.x = -800;
+		});
 	}
 	
 	DarkState.prototype.leftButton = function() {

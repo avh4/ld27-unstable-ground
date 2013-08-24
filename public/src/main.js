@@ -10,7 +10,11 @@ function(domReady, DemolitionState, DarkState) {
 			{id: "demolition", src:"img/demolition.png"},
 			{id: "b1", src:"img/b1.png"},
 			{id: "b1i", src:"img/b1i.png"},
-			{id: "dark1", src:"img/dark1.png"}
+			{id: "c1", src:"img/c1.png"},
+			{id: "c2", src:"img/c2.png"},
+			{id: "c3", src:"img/c3.png"},
+			{id: "c4", src:"img/c4.png"},
+			{id: "c5", src:"img/c5.png"}
 		]);
 		
 		function handleComplete() {
@@ -31,7 +35,7 @@ function(domReady, DemolitionState, DarkState) {
 			stage.addChild(demolitionState.view);
 			stage.addChild(darkState.view);
 			
-			switchTo(demolitionState);
+			switchTo(darkState);
 			
 			var debug = new createjs.Text("Debug Info");
 			stage.addChild(debug);
