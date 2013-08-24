@@ -13,12 +13,17 @@ function(domReady, Player) {
 		]);
 		
 		function handleComplete() {
+			var safeTime = 60*3;
 			var p = new Player();
 			
 			var stage = new createjs.Stage("canvas");
 			
 			var background = new createjs.Bitmap(queue.getResult("demolition"));
 			stage.addChild(background);
+			
+			var safeZone = new createjs.Shape();
+			safeZone.graphics.beginFill("green").drawRect(0, 500, 200, 30);
+			stage.addChild(safeZone);
 
 			b1i = new createjs.Bitmap(queue.getResult("b1i"));
 			b1i.x = 418; b1i.y = 200;
@@ -60,10 +65,17 @@ function(domReady, Player) {
 					player.y = 515;
 				}
 				debug.text = "x: " + p.x;
+				if (player.x <= 200) {
+					safeTime -= 1;
+				};
+				if (safeTime <= 0) {
+					createjs.Tween.get(eyelid).to({y:0}, 400);
+					safeTime = 60*3;
+				}
 			});
 			
 			keypress.combo("d", function() {
-			    createjs.Tween.get(eyelid).to({y:0}, 1000);
+			    createjs.Tween.get(eyelid).to({y:0}, 400);
 			});
 			keypress.combo("o", function() {
 			    createjs.Tween.get(eyelid).to({y:-631}, 1000);
