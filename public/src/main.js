@@ -16,7 +16,9 @@ function(domReady, DemolitionState, DarkState) {
 			{id: "c3", src:"img/c3.png"},
 			{id: "c4", src:"img/c4.png"},
 			{id: "c5", src:"img/c5.png"},
-			{id: "dl1", src:"img/DL1.png"}
+			{id: "dl1", src:"img/DL1.png"},
+			{id: "smoke1", src:"img/smoke1.png"},
+			{id: "smoke2", src:"img/smoke2.png"},
 		]);
 		
 		function handleComplete() {
@@ -33,7 +35,8 @@ function(domReady, DemolitionState, DarkState) {
 			}			
 			
 			var darkState = new DarkState(queue);
-			var demolitionState = new DemolitionState(queue, function() { switchTo(darkState) });
+			// var demolitionState = new DemolitionState(queue, function() { switchTo(darkState) });
+			var demolitionState = new DemolitionState(queue, function() { demolitionState.blast() });
 			stage.addChild(demolitionState.view);
 			stage.addChild(darkState.view);
 			
@@ -55,6 +58,7 @@ function(domReady, DemolitionState, DarkState) {
 			keypress.combo("up", function() { state.upButton() });
 			keypress.combo("down", function() { state.downButton() });
 			keypress.combo("space", function() { state.spaceButton() });
+			keypress.combo("d", function() { demolitionState.blast() });
 		}
 	});
 });

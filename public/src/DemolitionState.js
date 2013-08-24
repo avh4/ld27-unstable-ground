@@ -7,7 +7,7 @@ function(Player, Building1) {
 		this.preload = preload;
 		this.switchToDark = switchToDark;
 		
-		this.view = new createjs.Container();
+		var view = this.view = new createjs.Container();
 
 		var background = new createjs.Bitmap(preload.getResult("demolition"));
 		this.view.addChild(background);
@@ -31,6 +31,18 @@ function(Player, Building1) {
 		player.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
 		this.view.addChild(player);
 		this.player = player;
+
+		var smokes = this.smokes = [];
+		function addSmoke(img, x, y) {
+			var s = new createjs.Bitmap(preload.getResult(img));
+			s.regX = 392; s.regY = 600-82;
+			s.x = s.regX + x; s.y = s.regY + y;
+			s.visible = false;
+			smokes.push(s);
+			view.addChild(s);
+		}
+		addSmoke("smoke1", 590, 600-256);
+		addSmoke("smoke2", 324, 600-231);		
 	};
 	
 	DemolitionState.prototype.debug = function() {
@@ -59,6 +71,16 @@ function(Player, Building1) {
 			this.switchToDark();
 			this.safeTime = 60*3;
 		}
+	};
+	
+	DemolitionState.prototype.blast = function() {
+		this.b.blast(this.dyn1);
+		this.smokes.forEach(function (s) {
+			s.visible = true;
+			s.alpha = 1;
+			s.scaleX = s.scaleY = 1;
+			createjs.Tween.get(s).to({alpha:0, scaleX:1.4, scaleY:1.2}, 20000);
+		});
 	};
 	
 	DemolitionState.prototype.leftButton = function() {
