@@ -1,7 +1,10 @@
-define(["Player"], function(Player) {
+define(["Player", "Building1"],
+function(Player, Building1) {
 	
 	function DemolitionState(preload, switchToDark) {
 		this.p = new Player();
+		this.b = new Building1();
+		this.preload = preload;
 		this.switchToDark = switchToDark;
 		
 		this.view = new createjs.Container();
@@ -13,19 +16,15 @@ define(["Player"], function(Player) {
 		safeZone.graphics.beginFill("green").drawRect(0, 500, 200, 30);
 		this.view.addChild(safeZone);
 
-		b1i = new createjs.Bitmap(preload.getResult("b1i"));
-		b1i.x = 418; b1i.y = 200;
-		this.view.addChild(b1i);
+		b1 = new createjs.Bitmap();
+		b1.x = 418 + 1; b1.y = 200 + 2;
+		this.view.addChild(b1);
 		
 		var dyn1 = new createjs.Shape();
 		dyn1.graphics.beginFill("pink").drawRect(-15, -20, 30, 30);
 		dyn1.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
 		this.view.addChild(dyn1);
 		this.dyn1 = dyn1;
-		
-		b1 = new createjs.Bitmap(preload.getResult("b1"));
-		b1.x = 418 + 1; b1.y = 200 + 2;
-		this.view.addChild(b1);
 		
 		var player = new createjs.Shape();
 		player.graphics.beginFill("#ff0000").drawRect(-34/2, -60, 34, 60);
@@ -49,13 +48,10 @@ define(["Player"], function(Player) {
 		var player = this.player;
 		var p = this.p;
 		player.x = p.x;
-		if (p.where == "INSIDE") {
-			b1.visible = false;
-			player.y = 460;
-		} else {
-			b1.visible = true;
-			player.y = 515;
-		}
+		player.y = this.b.yFor(p.where);
+
+		b1.image = this.preload.getResult(this.b.imageFor(p.where));
+		
 		if (player.x <= 200) {
 			this.safeTime -= 1;
 		};
