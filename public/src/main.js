@@ -11,6 +11,7 @@ function(domReady, DemolitionState, DarkState) {
 			{id: "b1", src:"img/b1.png"},
 			{id: "b1i", src:"img/b1i.png"},
 			{id: "b1d", src:"img/b1d.png"},
+			{id: "b1fl", src:"img/b1fl.png"},
 			{id: "c1", src:"img/c1.png"},
 			{id: "c2", src:"img/c2.png"},
 			{id: "c3", src:"img/c3.png"},

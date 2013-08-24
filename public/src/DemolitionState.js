@@ -83,7 +83,7 @@ function(Player, Building1) {
 	};
 	
 	DemolitionState.prototype.blast = function() {
-		this.b.blast(this.dyn1);
+		this.b.blast([this.dyn1]);
 		this.smokes.forEach(function (s) {
 			s.visible = true;
 			s.alpha = 1;
