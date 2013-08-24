@@ -26,10 +26,17 @@ define([], function() {
 		addCloud("c2", -117, 600-255-278, 5);
 		addCloud("c4", -227, 600- 96-265, 10);
 		
+		var l = new createjs.Bitmap(preload.getResult("dl1"));
+		l.x = -8000+800; l.y = 0;
+		l.vx = 12;
+		this.l = l;
+		this.main.addChild(l);
+		
 		var player = new createjs.Shape();
 		player.graphics.beginFill("#880000").drawRect(-34/2, -60, 34, 60);
 		player.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
 		player.x = 700; player.y = 300;
+		player.vy = 0;
 		this.main.addChild(player);
 		this.player = player;
 
@@ -53,11 +60,20 @@ define([], function() {
 			c.x += c.vx;
 			if (c.x > 800) c.x = -800;
 		});
+		this.l.x += this.l.vx;
+		
+		this.player.vy += 1;
+		this.player.y += this.player.vy;
+		if (this.player.y > 500) {
+			this.player.vy = 0;
+			this.player.y = 500;
+		}
 		
 		this.t += 1/60;
-		var vx = Math.sin(this.t*60/4);
-		vx *= (vx < 0) ? .8 : 4;
-		this.player.x -= vx;
+		var dx = Math.sin(this.t*60/3.5) - 0.5;
+		dx *= (dx < 0) ? 8 : 16;
+		this.player.baseX = 700 - (600 * this.t/10);
+		this.player.x = this.player.baseX + ((this.player.vy == 0) ? dx : 0);
 		
 		if (this.t > 10) {
 			createjs.Tween.get(this.eyelid).to({y:-631}, 400);
@@ -78,6 +94,7 @@ define([], function() {
 	};
 	
 	DarkState.prototype.spaceButton = function() {
+		if (this.player.vy == 0) this.player.vy = -20;
 	}
 	
 	return DarkState;

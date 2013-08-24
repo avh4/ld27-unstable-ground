@@ -14,7 +14,8 @@ function(domReady, DemolitionState, DarkState) {
 			{id: "c2", src:"img/c2.png"},
 			{id: "c3", src:"img/c3.png"},
 			{id: "c4", src:"img/c4.png"},
-			{id: "c5", src:"img/c5.png"}
+			{id: "c5", src:"img/c5.png"},
+			{id: "dl1", src:"img/DL1.png"}
 		]);
 		
 		function handleComplete() {
