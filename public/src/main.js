@@ -25,6 +25,8 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState) {
 			{id: "smoke2", src:"img/smoke2.png"},
 			{id: "job1", src:"img/job1.png"},
 			{id: "job_t1", src:"img/job_t1.png"},
+			{id: "bubble_clear", src:"img/bubble_clear.png"},
+			{id: "bubble_wait", src:"img/bubble_wait.png"},
 		]);
 		
 		function handleComplete() {

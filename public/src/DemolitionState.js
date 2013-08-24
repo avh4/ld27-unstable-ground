@@ -28,11 +28,10 @@ function(Player, Building1) {
 		this.view.addChild(dyn1);
 		this.dyn1 = dyn1;
 		
-		var player = new createjs.Shape();
+		var player = this.player = new createjs.Shape();
 		player.graphics.beginFill("#ff0000").drawRect(-34/2, -60, 34, 60);
 		player.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
 		this.view.addChild(player);
-		this.player = player;
 
 		var smokes = this.smokes = [];
 		function addSmoke(img, x, y) {
@@ -44,7 +43,11 @@ function(Player, Building1) {
 			view.addChild(s);
 		}
 		addSmoke("smoke1", 590, 600-256);
-		addSmoke("smoke2", 324, 600-231);		
+		addSmoke("smoke2", 324, 600-231);
+		
+		var bubble = this.bubble = new createjs.Bitmap();
+		bubble.x = -64; bubble.y = 600-205-415;
+		view.addChild(bubble);
 	};
 	
 	DemolitionState.prototype.debug = function() {
@@ -56,6 +59,16 @@ function(Player, Building1) {
 		this.dyn1.visible = false;
 		this.p.where = "OUTSIDE";
 		this.p.x = 400;
+	}
+	
+	DemolitionState.prototype.shout = function(s) {
+		if (this.lastShout === s) return;
+		this.bubble.alpha = 1;
+		this.bubble.image = this.preload.getResult("bubble_" + s);
+		createjs.Tween.removeTweens(this.bubble);
+		createjs.Tween.get(this.bubble).wait(2000).to({alpha:0}, 500);
+		this.lastShout = s;
+		this.hasShouted = true;
 	}
 	
 	DemolitionState.prototype.update = function() {
@@ -70,8 +83,10 @@ function(Player, Building1) {
 			this.safeZone.visible = true;
 			if (player.x <= 200) {
 				this.safeTime -= 1/60;
+				this.shout("clear");
 			} else {
 				this.safeTime = safeMax;
+				if (this.hasShouted) this.shout("wait");
 			}
 
 			if (this.safeTime <= 0) {
