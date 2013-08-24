@@ -31,6 +31,12 @@ function(domReady) {
 			player.y = 500;
 			player.x = 400;
 			stage.addChild(player);
+			
+			var dyn1 = new createjs.Shape();
+			dyn1.graphics.beginFill("pink").drawRect(-15, -20, 30, 30);
+			dyn1.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
+			dyn1.visible = false;
+			stage.addChild(dyn1);
 
 			eyelid = new createjs.Bitmap(queue.getResult("eyelid_top"));
 			eyelid.y = -631;
@@ -62,6 +68,10 @@ function(domReady) {
 			keypress.combo("down", function() {
 				player.y += 30;
 				updateBuilding();
+			});
+			keypress.combo("space", function() {
+				dyn1.x = player.x; dyn1.y = player.y;
+				dyn1.visible = true;
 			});
 		}
 	});
