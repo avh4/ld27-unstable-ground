@@ -11,7 +11,6 @@ function(domReady) {
 		]);
 
 		function handleComplete() {
-			createjs.Sound.play("sound");
 			var image = queue.getResult("eyelid_top");
 
 			var stage = new createjs.Stage("canvas");
@@ -30,10 +29,21 @@ function(domReady) {
 			eyelid.y = -631;
 			stage.addChild(eyelid);
 
-			// createjs.Tween.get(eyelid).to({y:0}, 1000);
-
 			createjs.Ticker.setFPS(60);
 			createjs.Ticker.addListener(stage);
+			
+			keypress.combo("d", function() {
+			    createjs.Tween.get(eyelid).to({y:0}, 1000);
+			});
+			keypress.combo("o", function() {
+			    createjs.Tween.get(eyelid).to({y:-631}, 1000);
+			});
+			keypress.combo("right", function() {
+				player.x += 10;
+			});
+			keypress.combo("left", function() {
+				player.x -= 10;
+			});
 		}
 	});
 });
