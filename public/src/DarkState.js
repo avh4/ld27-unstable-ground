@@ -18,6 +18,10 @@ define([], function() {
 		this.main.addChild(background);
 	};
 	
+	DarkState.prototype.debug = function() {
+		return "";
+	}
+	
 	DarkState.prototype.start = function() {
 		this.main.visible = true;
 		createjs.Tween.get(this.eyelid).to({y:0}, 200);

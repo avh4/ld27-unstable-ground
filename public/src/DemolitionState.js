@@ -2,7 +2,6 @@ define(["Player"], function(Player) {
 	
 	function DemolitionState(preload, switchToDark) {
 		this.p = new Player();
-		this.safeTime = 60*3;
 		this.switchToDark = switchToDark;
 		
 		this.view = new createjs.Container();
@@ -21,7 +20,6 @@ define(["Player"], function(Player) {
 		var dyn1 = new createjs.Shape();
 		dyn1.graphics.beginFill("pink").drawRect(-15, -20, 30, 30);
 		dyn1.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
-		dyn1.visible = false;
 		this.view.addChild(dyn1);
 		this.dyn1 = dyn1;
 		
@@ -32,11 +30,20 @@ define(["Player"], function(Player) {
 		var player = new createjs.Shape();
 		player.graphics.beginFill("#ff0000").drawRect(-34/2, -60, 34, 60);
 		player.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
-		player.y = 500;
-		player.x = 400;
 		this.view.addChild(player);
 		this.player = player;
 	};
+	
+	DemolitionState.prototype.debug = function() {
+		return "x: " + this.p.x;
+	};
+	
+	DemolitionState.prototype.start = function() {
+		this.safeTime = 60*3;
+		this.dyn1.visible = false;
+		this.p.where = "OUTSIDE";
+		this.p.x = 400;
+	}
 	
 	DemolitionState.prototype.update = function() {
 		var player = this.player;
@@ -56,7 +63,7 @@ define(["Player"], function(Player) {
 			this.switchToDark();
 			this.safeTime = 60*3;
 		}
-	}
+	};
 	
 	DemolitionState.prototype.leftButton = function() {
 		this.p.leftButton();

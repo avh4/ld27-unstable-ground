@@ -21,31 +21,28 @@ function(domReady, DemolitionState, DarkState) {
 			stage.addChild(black);
 			
 			var state;
+			function switchTo(s) {
+				state = s;
+				state.start();
+			}			
 			
 			var darkState = new DarkState(queue);
-
-			function switchToDark() {
-				state = darkState;
-				state.start();
-			}
-			
-			state = new DemolitionState(queue, switchToDark);
-			stage.addChild(state.view);
+			var demolitionState = new DemolitionState(queue, function() { switchTo(darkState) });
+			stage.addChild(demolitionState.view);
 			stage.addChild(darkState.view);
 			
-			var debug = new createjs.Text("Text");
+			switchTo(demolitionState);
+			
+			var debug = new createjs.Text("Debug Info");
 			stage.addChild(debug);
 			
 			createjs.Ticker.setFPS(60);
 			createjs.Ticker.addListener(stage);
 			createjs.Ticker.addEventListener("tick", function() { 
 				state.update();
-				debug.text = "x: " + state.p.x;
+				debug.text = state.debug();
 			});
 			
-			keypress.combo("o", function() {
-			    createjs.Tween.get(eyelid).to({y:-631}, 1000);
-			});
 			keypress.combo("right", function() { state.rightButton() });
 			keypress.combo("left", function() { state.leftButton() });
 			keypress.combo("up", function() { state.upButton() });
