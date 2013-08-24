@@ -1,5 +1,5 @@
-require(["domReady", "DemolitionState"],
-function(domReady, DemolitionState) {
+require(["domReady", "DemolitionState", "DarkState"],
+function(domReady, DemolitionState, DarkState) {
 	domReady(function() {
 
 		var queue = new createjs.LoadQueue();
@@ -9,7 +9,8 @@ function(domReady, DemolitionState) {
 			{id: "eyelid_top", src:"img/eyelid_top.png"},
 			{id: "demolition", src:"img/demolition.png"},
 			{id: "b1", src:"img/b1.png"},
-			{id: "b1i", src:"img/b1i.png"}
+			{id: "b1i", src:"img/b1i.png"},
+			{id: "dark1", src:"img/dark1.png"}
 		]);
 		
 		function handleComplete() {
@@ -19,12 +20,18 @@ function(domReady, DemolitionState) {
 			black.graphics.beginFill("black").drawRect(0, 0, 800, 600);
 			stage.addChild(black);
 			
-			var state = new DemolitionState(queue);
-			stage.addChild(state.view);
+			var state;
 			
-			eyelid = new createjs.Bitmap(queue.getResult("eyelid_top"));
-			eyelid.y = -631;
-			stage.addChild(eyelid);
+			var darkState = new DarkState(queue);
+
+			function switchToDark() {
+				state = darkState;
+				state.start();
+			}
+			
+			state = new DemolitionState(queue, switchToDark);
+			stage.addChild(state.view);
+			stage.addChild(darkState.view);
 			
 			var debug = new createjs.Text("Text");
 			stage.addChild(debug);

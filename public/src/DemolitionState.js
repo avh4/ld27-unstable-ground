@@ -1,8 +1,9 @@
 define(["Player"], function(Player) {
 	
-	function DemolitionState(preload) {
+	function DemolitionState(preload, switchToDark) {
 		this.p = new Player();
 		this.safeTime = 60*3;
+		this.switchToDark = switchToDark;
 		
 		this.view = new createjs.Container();
 
@@ -52,7 +53,7 @@ define(["Player"], function(Player) {
 			this.safeTime -= 1;
 		};
 		if (this.safeTime <= 0) {
-			createjs.Tween.get(eyelid).to({y:0}, 200);
+			this.switchToDark();
 			this.safeTime = 60*3;
 		}
 	}
