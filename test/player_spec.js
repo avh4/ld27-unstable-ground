@@ -1,4 +1,4 @@
-var Player = require('../public/src/player');
+var Player = require('../public/src/Player');
 
 describe('Player', function() {
 	var subject;

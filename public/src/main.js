@@ -1,5 +1,5 @@
-require(["domReady", "player"],
-function(domReady, Player) {
+require(["domReady", "DemolitionState"],
+function(domReady, DemolitionState) {
 	domReady(function() {
 
 		var queue = new createjs.LoadQueue();
@@ -13,45 +13,14 @@ function(domReady, Player) {
 		]);
 		
 		function handleComplete() {
-			var safeTime = 60*3;
-			var p = new Player();
-			
 			var stage = new createjs.Stage("canvas");
 			
 			var black = new createjs.Shape();
 			black.graphics.beginFill("black").drawRect(0, 0, 800, 600);
 			stage.addChild(black);
 			
-			var demolition = new createjs.Container();
-			stage.addChild(demolition);
-			
-			var background = new createjs.Bitmap(queue.getResult("demolition"));
-			demolition.addChild(background);
-			
-			var safeZone = new createjs.Shape();
-			safeZone.graphics.beginFill("green").drawRect(0, 500, 200, 30);
-			demolition.addChild(safeZone);
-
-			b1i = new createjs.Bitmap(queue.getResult("b1i"));
-			b1i.x = 418; b1i.y = 200;
-			demolition.addChild(b1i);
-			
-			var dyn1 = new createjs.Shape();
-			dyn1.graphics.beginFill("pink").drawRect(-15, -20, 30, 30);
-			dyn1.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
-			dyn1.visible = false;
-			demolition.addChild(dyn1);
-			
-			b1 = new createjs.Bitmap(queue.getResult("b1"));
-			b1.x = 418 + 1; b1.y = 200 + 2;
-			demolition.addChild(b1);
-
-			var player = new createjs.Shape();
-			player.graphics.beginFill("#ff0000").drawRect(-34/2, -60, 34, 60);
-			player.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
-			player.y = 500;
-			player.x = 400;
-			demolition.addChild(player);
+			var state = new DemolitionState(queue);
+			stage.addChild(state.view);
 			
 			eyelid = new createjs.Bitmap(queue.getResult("eyelid_top"));
 			eyelid.y = -631;
@@ -62,23 +31,9 @@ function(domReady, Player) {
 			
 			createjs.Ticker.setFPS(60);
 			createjs.Ticker.addListener(stage);
-			createjs.Ticker.addEventListener("tick", function() {
-				player.x = p.x;
-				if (p.where == "INSIDE") {
-					b1.visible = false;
-					player.y = 460;
-				} else {
-					b1.visible = true;
-					player.y = 515;
-				}
-				debug.text = "x: " + p.x;
-				if (player.x <= 200) {
-					safeTime -= 1;
-				};
-				if (safeTime <= 0) {
-					createjs.Tween.get(eyelid).to({y:0}, 400);
-					safeTime = 60*3;
-				}
+			createjs.Ticker.addEventListener("tick", function() { 
+				state.update();
+				debug.text = "x: " + state.p.x;
 			});
 			
 			keypress.combo("d", function() {
@@ -87,14 +42,11 @@ function(domReady, Player) {
 			keypress.combo("o", function() {
 			    createjs.Tween.get(eyelid).to({y:-631}, 1000);
 			});
-			keypress.combo("right", function() { p.rightButton() });
-			keypress.combo("left", function() { p.leftButton() });
-			keypress.combo("up", function() { p.upButton() });
-			keypress.combo("down", function() { p.downButton() });
-			keypress.combo("space", function() {
-				dyn1.x = player.x; dyn1.y = player.y;
-				dyn1.visible = true;
-			});
+			keypress.combo("right", function() { state.rightButton() });
+			keypress.combo("left", function() { state.leftButton() });
+			keypress.combo("up", function() { state.upButton() });
+			keypress.combo("down", function() { state.downButton() });
+			keypress.combo("space", function() { state.spaceButton() });
 		}
 	});
 });
