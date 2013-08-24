@@ -14,10 +14,14 @@
     "underscore": "1.5.x",
     "node-uuid": "1.4.x",
     "nodetime": "0.8.x",
-    "jasmine-node": "~1.11.0"
+    "jasmine-node": "~1.11.0",
+    "requirejs": "~2.1.8"
   },
   "devDependencies": {
     "jasmine-sinon": "~0.2.0",
     "sinon": "~1.7.3"
+  },
+  "scripts": {
+	"test": "node spec_runner.js"
   }
 }

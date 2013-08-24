@@ -1,8 +1,4 @@
-(function(name, definition) {
-    if (typeof module != 'undefined') module.exports = definition();
-    else if (typeof define == 'function' && typeof define.amd == 'object') define(definition);
-    else this[name] = definition();
-}('Player', function() {
+define([], function() {
 	function Player() {
 		this.x = 400;
 		this.where = "OUTSIDE";
@@ -29,4 +25,4 @@
 	};
 	
 	return Player;
-}));
+});
