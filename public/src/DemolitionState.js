@@ -2,12 +2,13 @@ define(["Player", "Building1", "ShoutBubble"],
 function(Player, Building1, ShoutBubble) {
 	var safeMax = 3;
 	
-	function DemolitionState(building, preload, switchToDark, nextLevel) {
+	function DemolitionState(building, preload, switchToDark, nextLevel, restart) {
 		this.p = new Player();
 		this.b = building;
 		this.preload = preload;
 		this.switchToDark = switchToDark;
 		this.nextLevel = nextLevel;
+		this.restart = restart;
 		
 		var view = this.view = new createjs.Container();
 
@@ -62,6 +63,10 @@ function(Player, Building1, ShoutBubble) {
 		this.help5.setTransform(220, 600-38-33);
 		this.help8 = view.addChild(new createjs.Bitmap(preload.getResult("help8")));
 		this.help8.setTransform(76, 600-254-73);
+		this.help8.visible = false;
+		this.help9 = view.addChild(new createjs.Bitmap(preload.getResult("help9")));
+		this.help9.setTransform(145, 600-489);
+		this.help9.visible = false;
 		
 		var bubble = this.bubble = new ShoutBubble(1500, preload);
 		view.addChild(bubble);
@@ -102,7 +107,6 @@ function(Player, Building1, ShoutBubble) {
 		this.help3.visible = false;
 		this.help4.visible = false;
 		this.help5.visible = false;
-		this.help8.visible = false;
 		if (!this.b.tutorial) return;
 		switch(level) {
 			case 1: this.help1.visible = this.help5.visible = true; break;
@@ -160,13 +164,22 @@ function(Player, Building1, ShoutBubble) {
 			s.scaleX = s.scaleY = 1;
 			createjs.Tween.get(s).to({alpha:0, scaleX:1.4, scaleY:1.2}, 20000);
 		});
-		this.help8.alpha = 0;
-		createjs.Tween.get(this.help8).wait(2000+3000).to({alpha:1}, 500);
-		createjs.Tween.get(this.afterTalk).wait(2000).to({alpha:1}, 4000).to({alpha:0}, 4000);
 		
 		this.dyns.forEach(function(dyn) {
 			dyn.visible = false;
 		});
+
+		if (this.b.isDestroyed) {
+			this.help8.visible = true;
+			this.help8.alpha = 0;
+			createjs.Tween.get(this.help8).wait(2000+3000).to({alpha:1}, 500);
+			createjs.Tween.get(this.afterTalk).wait(2000).to({alpha:1}, 4000).to({alpha:0}, 4000);
+		} else {
+			this.advanceHelpLevel(6);
+			this.help9.visible = true;
+			this.help9.alpha = 0;
+			createjs.Tween.get(this.help9).wait(2000).to({alpha:1}, 500);
+		}
 	};
 	
 	DemolitionState.prototype.leftButton = function() {
@@ -196,7 +209,6 @@ function(Player, Building1, ShoutBubble) {
 			for(var i = 0; i < this.dyns.length; i++) {
 				var dyn = this.dyns[i];
 				if (!dyn.isPlaced) {
-					console.log(dyn.regX);
 					dyn.setTransform(this.player.x - dyn.regX, this.player.y - dyn.regY - 30);
 					dyn.visible = true;
 					dyn.isPlaced = true;
@@ -204,7 +216,11 @@ function(Player, Building1, ShoutBubble) {
 				}
 			}
 		} else {
-			this.nextLevel();
+			if (this.b.isDestroyed) {
+				this.nextLevel();
+			} else {
+				this.restart();
+			}
 		}
 	}
 	

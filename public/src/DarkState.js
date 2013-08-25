@@ -105,9 +105,9 @@ function(ShoutBubble) {
 		
 		if (this.t > 10 && !this.hasFlashed) {
 			this.flash.visible = true;
-			createjs.Tween.get(this.flash).to({alpha:0}, 100);
+			createjs.Tween.get(this.flash).to({alpha:.4}, 100).to({alpha:0}, 1200);
 			this.flashWhite.visible = true;
-			createjs.Tween.get(this.flashWhite).to({alpha:0}, 50);
+			createjs.Tween.get(this.flashWhite).to({alpha:.3}, 50).to({alpha:0}, 1500);
 			this.hasFlashed = true;
 		}
 		

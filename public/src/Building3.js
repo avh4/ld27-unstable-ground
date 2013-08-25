@@ -1,6 +1,6 @@
 define([], function() {
 	function Building3() {
-		this.destroyed = false;
+		this.isDestroyed = false;
 		this.x = 0;
 		this.y = 0;
 		this.startX = 200;
@@ -16,7 +16,7 @@ define([], function() {
 	
 	Building3.prototype.imageFor = function(where) {
 		if (this.fail) return this.fail;
-		// if (this.destroyed) return "b3d";
+		// if (this.isDestroyed) return "b3d";
 		// if (where == "L3") return "b2i";
 		// if (where == "L2") return "b2i";
 		// if (where == "INSIDE") return "b2i";
@@ -25,7 +25,7 @@ define([], function() {
 	
 	Building3.prototype.blast = function(dyns) {
 		// if (dyns[0].x >= 560) {
-		// 	this.destroyed = true;
+		// 	this.isDestroyed = true;
 		// } else {
 			// this.fail = "b2f";
 		// }

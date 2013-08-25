@@ -58,6 +58,7 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			{id: "help6", src:"img/help6.png"},
 			{id: "help7", src:"img/help7.png"},
 			{id: "help8", src:"img/help8.png"},
+			{id: "help9", src:"img/help9.png"},
 		]);
 		
 		function handleComplete() {
@@ -107,16 +108,20 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			makeDark,
 			makeDark];
 			
-			var nextLevel;
-			nextLevel = function() {
-				var b = new (buildings.shift())();
-				var dark = darks.shift();
+			function restartLevel() {
+				var b = new (buildings[0])();
+				var dark = darks[0];
 				function toThinking() { push(dark(state.dyns)); };
-				function toDemolition() { switchTo(new DemolitionState(b, preload, toThinking, nextLevel)); };
+				function toDemolition() { switchTo(new DemolitionState(b, preload, toThinking, nextLevel, restartLevel)); };
 				function toJob() { switchTo(new JobState(preload, toDemolition))}
 				toJob();
 			}
-			function toTitle() { switchTo(new TitleState(preload, nextLevel)); };
+			function nextLevel() {
+				buildings.shift();
+				darks.shift();
+				restartLevel();
+			}
+			function toTitle() { switchTo(new TitleState(preload, restartLevel)); };
 			
 			toTitle();
 			

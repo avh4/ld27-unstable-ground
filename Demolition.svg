@@ -1804,11 +1804,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.70003571"
-     inkscape:cx="609.86077"
-     inkscape:cy="265.4625"
+     inkscape:zoom="1.2975"
+     inkscape:cx="406.93642"
+     inkscape:cy="299.04559"
      inkscape:document-units="px"
-     inkscape:current-layer="layer19"
+     inkscape:current-layer="g24516"
      showgrid="false"
      inkscape:window-width="1440"
      inkscape:window-height="852"
@@ -2458,7 +2458,7 @@
      inkscape:groupmode="layer"
      id="layer8"
      inkscape:label="B1 Fail Left"
-     style="display:none"
+     style="display:inline"
      sodipodi:insensitive="true">
     <g
        style="display:inline"
@@ -2981,6 +2981,69 @@
            x="75.428589"
            y="346.57147"
            id="tspan21214">another day, another job</tspan></text>
+    </g>
+  </g>
+  <g
+     style="display:inline"
+     inkscape:label="B1 Aftermath Fail"
+     id="g24516"
+     inkscape:groupmode="layer">
+    <g
+       id="g24581">
+      <g
+         transform="translate(60,-52)"
+         id="g24565">
+        <text
+           sodipodi:linespacing="125%"
+           id="text24532"
+           y="306.57147"
+           x="183.23586"
+           style="font-size:32px;font-style:italic;font-variant:normal;font-weight:300;font-stretch:condensed;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Avenir Next Condensed;-inkscape-font-specification:'Avenir Next Condensed, Light Italic Condensed'"
+           xml:space="preserve"><tspan
+             id="tspan24534"
+             y="306.57147"
+             x="183.23586"
+             sodipodi:role="line">to retry</tspan></text>
+        <g
+           transform="translate(-288.19274,-282)"
+           id="g24536">
+          <text
+             sodipodi:linespacing="125%"
+             id="text24538"
+             y="588.85718"
+             x="396.39828"
+             style="font-size:24px;font-style:italic;font-variant:normal;font-weight:300;font-stretch:condensed;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Avenir Next Condensed;-inkscape-font-specification:'Avenir Next Condensed, Light Italic Condensed'"
+             xml:space="preserve"><tspan
+               y="588.85718"
+               x="396.39828"
+               id="tspan24540"
+               sodipodi:role="line"
+               style="font-size:24px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Impact;-inkscape-font-specification:Impact Bold">SPACE</tspan></text>
+          <rect
+             style="fill:none;stroke:#000000;stroke-width:2.23056149;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+             id="rect24542"
+             width="72.030724"
+             height="31.62665"
+             x="390.72134"
+             y="563.69208"
+             ry="11.860002" />
+        </g>
+      </g>
+      <text
+         sodipodi:linespacing="125%"
+         id="text24544"
+         y="134.57147"
+         x="237.76759"
+         style="font-size:32px;font-style:italic;font-variant:normal;font-weight:300;font-stretch:condensed;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Avenir Next Condensed;-inkscape-font-specification:'Avenir Next Condensed, Light Italic Condensed'"
+         xml:space="preserve"><tspan
+           id="tspan24546"
+           y="134.57147"
+           x="237.76759"
+           sodipodi:role="line">the building only</tspan><tspan
+           id="tspan24575"
+           y="174.57147"
+           x="237.76759"
+           sodipodi:role="line">partially collapsed</tspan></text>
     </g>
   </g>
   <g
@@ -4348,7 +4411,8 @@
   <g
      inkscape:groupmode="layer"
      id="layer19"
-     inkscape:label="B3 Outside">
+     inkscape:label="B3 Outside"
+     style="display:none">
     <rect
        style="fill:#8e8e75;fill-opacity:1;stroke:none"
        id="rect24446"
@@ -4424,13 +4488,14 @@
        sodipodi:cx="484.84848"
        sodipodi:sides="8"
        id="path24473"
-       style="fill:none;fill-opacity:1;stroke:#4e515f;stroke-opacity:1;stroke-width:3.49995505000000007;stroke-miterlimit:4;stroke-dasharray:none"
+       style="fill:none;stroke:#4e515f;stroke-width:3.49995494;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        sodipodi:type="star"
        clip-path="url(#clipPath24495)" />
     <path
        id="path24505"
-       style="fill:none;stroke:#4e515f;stroke-width:3.50000000000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 362.9253,164.59598 0,-40 m 73.5814,27.80542 4.92735,41.86198 m 188.85319,-29.92708 -0.28319,-42.0636 m -77.82506,71.88312 c 0.0818,-40.03121 0.0818,-40.03121 0.0818,-40.03121" />
+       style="fill:none;stroke:#4e515f;stroke-width:3.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 362.9253,164.59598 0,-40 m 73.5814,27.80542 4.92735,41.86198 m 188.85319,-29.92708 -0.28319,-42.0636 m -77.82506,71.88312 c 0.0818,-40.03121 0.0818,-40.03121 0.0818,-40.03121"
+       inkscape:connector-curvature="0" />
     <path
        sodipodi:nodetypes="ccccc"
        id="path24508"
