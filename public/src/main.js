@@ -31,7 +31,8 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			{id: "c3", src:"img/c3.png"},
 			{id: "c4", src:"img/c4.png"},
 			{id: "c5", src:"img/c5.png"},
-			{id: "dl1", src:"img/DL1.png"},
+			{id: "dl2", src:"img/DL1.png"},
+			{id: "dl3", src:"img/dl3.png"},
 			{id: "flash", src:"img/flash.png"},
 			{id: "smoke1", src:"img/smoke1.png"},
 			{id: "smoke2", src:"img/smoke2.png"},
@@ -91,34 +92,32 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 				lastState = undefined;
 			}
 			
-			function makeThinking(dyns) {
+			function makeThinking(dl, dyns, dead) {
 				return new ThinkingState(preload, function() { lastState.blast(); pop(); });
 			}
 			
-			function makeDark(dyns) {
-				return new DarkState(dyns, preload, function() { lastState.blast(); pop(); })
+			function makeDark(dl, dyns, dead) {
+				return new DarkState(dl, dyns, preload, 
+					function() { lastState.blast(); pop(); },
+					dead)
 			}
 			
-			var buildings = [
-			Building1, 
-			Building2,
-			Building3];
-			var darks = [
-			makeThinking, 
-			makeDark,
-			makeDark];
+			var levels = [
+				// {b: Building1, d: makeThinking, dl: "dl1"},
+				// {b: Building2, d: makeDark, dl: "dl2"},
+				{b: Building3, d: makeDark, dl: "dl3"},
+			]
 			
 			function restartLevel() {
-				var b = new (buildings[0])();
-				var dark = darks[0];
-				function toThinking() { push(dark(state.dyns)); };
-				function toDemolition() { switchTo(new DemolitionState(b, preload, toThinking, nextLevel, restartLevel)); };
+				var b = new (levels[0].b)();
+				var dark = levels[0].d;
+				function toDark() { push(dark(levels[0].dl, state.dyns, restartLevel)); };
+				function toDemolition() { switchTo(new DemolitionState(b, preload, toDark, nextLevel, restartLevel)); };
 				function toJob() { switchTo(new JobState(preload, toDemolition))}
 				toJob();
 			}
 			function nextLevel() {
-				buildings.shift();
-				darks.shift();
+				levels.shift();
 				restartLevel();
 			}
 			function toTitle() { switchTo(new TitleState(preload, restartLevel)); };

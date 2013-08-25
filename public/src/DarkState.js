@@ -1,11 +1,13 @@
 define(["ShoutBubble"],
 function(ShoutBubble) {
 	
-	function DarkState(dyns, preload, blast) {
+	function DarkState(dl, dyns, preload, blast, dead) {
 		var th = this;
+		this.alphaThreshold = 1;
 		this.t = 0;
 		this.blast = blast;
 		this.dyns = dyns;
+		this.dead = dead;
 		var view = this.view = new createjs.Container();
 		
 		var eyelid = new createjs.Bitmap(preload.getResult("eyelid_top"));
@@ -28,10 +30,10 @@ function(ShoutBubble) {
 		addCloud("c2", -117, 600-255-278, 5);
 		addCloud("c4", -227, 600- 96-265, 10);
 		
-		var l = this.l = main.addChild(new createjs.Bitmap(preload.getResult("dl1")));
+		var l = this.l = main.addChild(new createjs.Bitmap(preload.getResult(dl)));
 		l.x = -8000+800; l.y = 0;
 		l.vx = 10;
-		this.hitBitmap = new createjs.Bitmap(preload.getResult("dl1"));
+		this.hitBitmap = new createjs.Bitmap(preload.getResult(dl));
 		
 		var flash = this.flash = main.addChild(new createjs.Container());
 		flash.visible = false;
@@ -64,6 +66,8 @@ function(ShoutBubble) {
 	
 	DarkState.prototype.start = function() {
 		this.main.visible = true;
+		this.player.dx = 0;
+		this.player.y = this.nearestGround(this.player.x - this.l.x, 0);
 		createjs.Tween.get(this.eyelid).to({y:0}, 200);
 		createjs.Tween.get(this.main).to({alpha:1}, 300);
 	}
@@ -79,19 +83,26 @@ function(ShoutBubble) {
 		var dx = Math.sin(this.t*60/3.5) - 0.5;
 		dx *= (dx < 0) ? 8 : 16;
 		this.player.baseX = 700 - (600 * this.t/12);
-		this.player.x = this.player.baseX + ((this.player.vy == 0) ? dx : 0);
+		this.player.x = this.player.baseX + ((this.player.vy == 0) ? dx : 0) + this.player.dx;
+		if (this.player.x > 790) {
+			this.player.dx -= (this.player.x - 790);
+			this.player.x = 790;
+		}
+		if (this.player.x < 10) {
+			this.player.dx += (10 - this.player.x);
+			this.player.x = 10;
+		}
+		var open = this.nearestOpen(-this.l.x, this.player.x, this.player.y);
+		if (open != Math.floor(this.player.x)) {
+			this.player.dx -= Math.floor(this.player.x - open);
+			this.player.x = open;
+		}
+		if (this.player.x > 790) {
+			this.dead();
+		}
 		
-		var alphaThreshold = 1;
 		var hitX = this.player.x - this.l.x;
-		this.hitBitmap.cache(hitX, 0, 1, 600);
-		var hitData = this.hitBitmap.cacheCanvas.getContext('2d').getImageData(0, 0, 1, 600);
-		var groundY = this.player.y;
-		while (hitData.data[groundY*4+3] < alphaThreshold && groundY < 600) {
-			groundY++;
-		}
-		while (hitData.data[groundY*4+3] >= alphaThreshold && groundY > 0) {
-			groundY--;
-		}
+		groundY = this.nearestGround(hitX, this.player.y)
 		
 		this.player.vy += 1;
 		this.player.y += this.player.vy;
@@ -119,9 +130,11 @@ function(ShoutBubble) {
 	}
 	
 	DarkState.prototype.leftButton = function() {
+		this.player.dx -= 10;
 	};
 	
 	DarkState.prototype.rightButton = function() {
+		this.player.dx += 10;
 	};
 	
 	DarkState.prototype.upButton = function() {
@@ -133,6 +146,42 @@ function(ShoutBubble) {
 	DarkState.prototype.spaceButton = function() {
 		if (this.player.vy == 0) this.player.vy = -20;
 	}
+	
+	DarkState.prototype.nearestGround = function(x, y) {
+		this.hitBitmap.cache(x, 0, 1, 600);
+		var hitData = this.hitBitmap.cacheCanvas.getContext('2d').getImageData(0, 0, 1, 600);
+		var groundY = y;
+		while (hitData.data[groundY*4+3] < this.alphaThreshold && groundY < 600) {
+			groundY++;
+		}
+		while (hitData.data[groundY*4+3] >= this.alphaThreshold && groundY > 0) {
+			groundY--;
+			if (groundY - y < -4) break;
+		}
+		return groundY;
+	}
+	
+	DarkState.prototype.nearestOpen = function(leftX, dx, y) {
+		this.hitBitmap.cache(leftX, y, 800, 1);
+		var hitData = this.hitBitmap.cacheCanvas.getContext('2d').getImageData(0, 0, 800, 1);
+		dx = Math.floor(dx);
+		
+		// If this space is open, use it
+		if (hitData.data[dx*4+3] < this.alphaThreshold) return dx;
+		
+		// Find if we're on the left or right of a wall
+		var leftWallDX = dx;
+		while (hitData.data[leftWallDX*4+3] >= this.alphaThreshold && leftWallDX >= 0) {
+			leftWallDX--;
+		}
+		var rightWallDX = dx;
+		while (hitData.data[rightWallDX*4+3] >= this.alphaThreshold && rightWallDX < 800) {
+			rightWallDX++;
+		}
+		var closest = (dx - leftWallDX) >= (rightWallDX - dx)  ? leftWallDX : rightWallDX;
+		return rightWallDX;
+	}
+	
 	
 	return DarkState;
 });
