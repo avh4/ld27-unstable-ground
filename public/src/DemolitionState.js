@@ -22,9 +22,8 @@ function(Player, Building1, ShoutBubble) {
 		
 		var dyns = this.dyns = [];
 		for (var i = 0; i < building.dyns; i++) {
-			var dyn = view.addChild(new createjs.Shape());
-			dyn.graphics.beginFill("pink").drawRect(-15, -20, 30, 30);
-			dyn.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
+			var dyn = view.addChild(new createjs.Bitmap(preload.getResult("dyn")));
+			dyn.regX = 14; dyn.regY = 23;
 			dyn.isPlaced = false;
 			dyns.push(dyn);
 		}
@@ -79,7 +78,8 @@ function(Player, Building1, ShoutBubble) {
 		
 		var i = 0;
 		this.dyns.forEach(function(dyn) {
-			dyn.setTransform(30 + i*40, 30);
+			dyn.x = 30 + i*40;
+			dyn.y = 30;
 			i++;
 		});
 		
@@ -196,7 +196,8 @@ function(Player, Building1, ShoutBubble) {
 			for(var i = 0; i < this.dyns.length; i++) {
 				var dyn = this.dyns[i];
 				if (!dyn.isPlaced) {
-					dyn.setTransform(this.player.x, this.player.y);
+					console.log(dyn.regX);
+					dyn.setTransform(this.player.x - dyn.regX, this.player.y - dyn.regY - 30);
 					dyn.visible = true;
 					dyn.isPlaced = true;
 					break;

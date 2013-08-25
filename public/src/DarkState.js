@@ -34,7 +34,7 @@ function(ShoutBubble) {
 		this.hitBitmap = new createjs.Bitmap(preload.getResult("dl1"));
 		
 		var flash = this.flash = main.addChild(new createjs.Container());
-		// flash.visible = false;
+		flash.visible = false;
 		var flashWhite = this.flashWhite = main.addChild(new createjs.Shape());
 		flashWhite.graphics.beginFill("white").drawRect(0, 0, 800, 600);
 		flashWhite.visible = false;

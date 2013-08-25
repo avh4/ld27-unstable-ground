@@ -15,6 +15,7 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			{id: "t1s", src:"img/t1s.png"},
 			{id: "eyelid_top", src:"img/eyelid_top.png"},
 			{id: "demolition", src:"img/demolition.png"},
+			{id: "dyn", src:"img/dyn.png"},
 			{id: "demolition_talk1", src:"img/demolition_talk1.png"},
 			{id: "aftermath_talk1", src:"img/aftermath_talk1.png"},
 			{id: "b1", src:"img/b1.png"},
