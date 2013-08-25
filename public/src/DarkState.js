@@ -1,8 +1,10 @@
-define([], function() {
+define(["ShoutBubble"],
+function(ShoutBubble) {
 	
-	function DarkState(preload, switchToDark) {
+	function DarkState(preload, blast) {
 		var th = this;
 		this.t = 0;
+		this.blast = blast;
 		this.view = new createjs.Container();
 		
 		var eyelid = new createjs.Bitmap(preload.getResult("eyelid_top"));
@@ -42,7 +44,9 @@ define([], function() {
 
 		addCloud("c1",  237, 0, 15);
 		addCloud("c5",  153, 600- 60-102, 15);
-		addCloud("c3",   88, 600-170-277, 20);		
+		addCloud("c3",   88, 600-170-277, 20);
+		
+		this.bubble = this.view.addChild(new ShoutBubble(200, preload));
 	};
 	
 	DarkState.prototype.debug = function() {
@@ -74,6 +78,13 @@ define([], function() {
 		dx *= (dx < 0) ? 8 : 16;
 		this.player.baseX = 700 - (600 * this.t/10);
 		this.player.x = this.player.baseX + ((this.player.vy == 0) ? dx : 0);
+		
+		var s = 10 - Math.floor(this.t);
+		if (s > 0) this.bubble.shout(s);
+		
+		if (s <= 0) {
+			this.blast();
+		}
 		
 		if (this.t > 10) {
 			createjs.Tween.get(this.eyelid).to({y:-631}, 400);

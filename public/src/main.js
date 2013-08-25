@@ -68,7 +68,6 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			var state;
 			var lastState;
 			var darkState;
-			var buildings = [Building1, Building2];
 			function switchTo(s) {
 				stage.removeAllChildren();
 				state = s;
@@ -88,10 +87,17 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 				lastState = undefined;
 			}
 			
+			var buildings = [Building1, Building2];
+			var darks = [
+				new ThinkingState(preload, function() { lastState.blast(); pop(); }),
+				new DarkState(preload, function() { lastState.blast(); pop(); })
+			];
+			
 			var nextLevel;
 			nextLevel = function() {
 				var b = new (buildings.shift())();
-				function toThinking() { push(new ThinkingState(preload, function() { lastState.blast(); pop(); })); };
+				var dark = darks.shift();
+				function toThinking() { push(dark); };
 				function toDemolition() { switchTo(new DemolitionState(b, preload, toThinking, nextLevel)); };
 				function toJob() { switchTo(new JobState(preload, toDemolition))}
 				toJob();
