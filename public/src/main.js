@@ -16,6 +16,7 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			{id: "eyelid_top", src:"img/eyelid_top.png"},
 			{id: "demolition", src:"img/demolition.png"},
 			{id: "dyn", src:"img/dyn.png"},
+			{id: "player", src:"img/player.png"},
 			{id: "demolition_talk1", src:"img/demolition_talk1.png"},
 			{id: "aftermath_talk1", src:"img/aftermath_talk1.png"},
 			{id: "b1", src:"img/b1.png"},
@@ -108,8 +109,8 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			
 			var levels = [
 				// {b: Building1, d: makeThinking, dl: "dl1"},
-				// {b: Building2, d: makeDark, dl: "dl2"},
-				// {b: Building3, d: makeDark, dl: "dl3"},
+				{b: Building2, d: makeDark, dl: "dl2"},
+				{b: Building3, d: makeDark, dl: "dl3"},
 				{b: Building4, d: makeDark, dl: "dl4"},
 			]
 			

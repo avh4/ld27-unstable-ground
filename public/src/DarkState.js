@@ -1,5 +1,5 @@
-define(["ShoutBubble"],
-function(ShoutBubble) {
+define(["ShoutBubble", "PlayerSprite"],
+function(ShoutBubble, PlayerSprite) {
 	
 	function DarkState(dl, dyns, preload, blast, dead) {
 		var th = this;
@@ -45,13 +45,9 @@ function(ShoutBubble) {
 			f.setTransform(dyn.x - 242/2, dyn.y - 238/2);
 		});
 		
-		var player = new createjs.Shape();
-		player.graphics.beginFill("#880000").drawRect(-34/2, -60, 34, 60);
-		player.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
+		var player = this.player = main.addChild(new PlayerSprite(preload));
 		player.x = 700; player.y = 300;
 		player.vy = 0;
-		this.main.addChild(player);
-		this.player = player;
 
 		addCloud("c1",  237, 0, 15);
 		addCloud("c5",  153, 600- 60-102, 15);

@@ -1,5 +1,5 @@
-define(["Player", "Building1", "ShoutBubble"],
-function(Player, Building1, ShoutBubble) {
+define(["Player", "Building1", "ShoutBubble", "PlayerSprite"],
+function(Player, Building1, ShoutBubble, PlayerSprite) {
 	var safeMax = 3;
 	
 	function DemolitionState(building, preload, switchToDark, nextLevel, restart) {
@@ -29,9 +29,8 @@ function(Player, Building1, ShoutBubble) {
 			dyns.push(dyn);
 		}
 		
-		var player = this.player = view.addChild(new createjs.Shape());
-		player.graphics.beginFill("#ff0000").drawRect(-34/2, -60, 34, 60);
-		player.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
+		var player = this.player = view.addChild(new PlayerSprite(preload));
+		player.regX = 15; player.regY = 60-1;
 
 		var smokes = this.smokes = [];
 		function addSmoke(img, x, y) {
