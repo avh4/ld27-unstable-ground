@@ -3,6 +3,10 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 	domReady(function() {
 
 		var preload = new createjs.LoadQueue();
+		preload.onProgress = function(p) { 
+			document.getElementById("loading").innerText
+				= "Loading... " + (p.progress * 100).toFixed(1) + "%";
+		};
 		preload.installPlugin(createjs.Sound);
 		preload.addEventListener("complete", handleComplete);
 		preload.loadManifest([
@@ -49,6 +53,7 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 		]);
 		
 		function handleComplete() {
+			document.getElementById("loading").innerText = "";
 			var stage = new createjs.Stage("canvas");
 			
 			var black = new createjs.Shape();
