@@ -30,7 +30,6 @@ function(Player, Building1, ShoutBubble, PlayerSprite) {
 		}
 		
 		var player = this.player = view.addChild(new PlayerSprite(preload));
-		player.regX = 15; player.regY = 60-1;
 
 		var smokes = this.smokes = [];
 		function addSmoke(img, x, y) {
