@@ -13,7 +13,7 @@ define([], function() {
 		if (where == "L3") return 600-259;
 		if (where == "L2") return 600-161;
 		if (where == "INSIDE") return 600-71;
-		else return 555;
+		else return 560;
 	}
 	
 	Building3.prototype.imageFor = function(where) {
@@ -24,11 +24,24 @@ define([], function() {
 	};
 	
 	Building3.prototype.blast = function(dyns) {
-		// if (dyns[0].x >= 560) {
-		// 	this.isDestroyed = true;
-		// } else {
-			// this.fail = "b2f";
-		// }
+		var a = false;
+		var b = false;
+		var tl = false;
+		var tr = false;
+		var d = false;
+		dyns.forEach(function(dyn) {
+			if (dyn.where == "L2"     && dyn.x >= 385 && dyn.x <= 488) tl = a = true;
+			if (dyn.where == "L2"     && dyn.x >= 488 && dyn.x <= 608) tr = b = true;
+			if (dyn.where == "INSIDE" && dyn.x >= 488) tr = true;
+			if (dyn.where == "INSIDE") tl = true;
+			if (dyn.where != "OUTSIDE") d = true;
+		});
+		if (a && b) this.isDestroyed = true;
+		else if (tr) this.fail = "b3ftr";
+		else if (tl) this.fail = "b3ftl";
+		else if (d) this.fail = "b3ft";
+		else this.fail = "b3";
+		console.log(this.fail);
 	}
 	
 	Building3.prototype.maxX = function(where) {

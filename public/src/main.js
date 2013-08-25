@@ -129,7 +129,7 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			var levels = [
 				// {b: Building1, d: makeThinking, dl: "dl1"},
 				// {b: Building2, d: makeDark, dl: "dl2"},
-				// {b: Building3, d: makeDark, dl: "dl3"},
+				{b: Building3, d: makeDark, dl: "dl3"},
 				{b: Building4, d: makeDark, dl: "dl4"},
 			]
 			

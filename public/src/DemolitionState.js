@@ -17,7 +17,7 @@ function(Player, Building1, ShoutBubble, PlayerSprite) {
 		view.addChild(background);
 		
 		var safeZone = this.safeZone = view.addChild(new createjs.Shape());
-		safeZone.graphics.beginFill("green").drawRect(0, 500, 200, 30);
+		safeZone.graphics.beginFill("green").drawRect(0, 500, 100, 10);
 
 		b1 = view.addChild(new createjs.Bitmap());
 		b1.x = building.x; b1.y = building.y;
@@ -112,7 +112,6 @@ function(Player, Building1, ShoutBubble, PlayerSprite) {
 			case 2: this.help2.visible = true; break;
 			case 3: this.help3.visible = true; break;
 			case 4: this.help4.visible = true; break;
-			case 5: this.help8.visible = true; break;
 		}
 	}
 
@@ -135,7 +134,7 @@ function(Player, Building1, ShoutBubble, PlayerSprite) {
 
 			if (allDynsPlaced) {
 				this.safeZone.visible = true;
-				if (player.x <= 200) {
+				if (player.x <= 100) {
 					this.safeTime -= 1/60;
 					this.bubble.shout("clear");
 				} else {
