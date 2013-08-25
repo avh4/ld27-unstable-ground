@@ -42,6 +42,9 @@ function(Player, Building1, ShoutBubble) {
 		
 		this.talk = view.addChild(new createjs.Bitmap(preload.getResult("demolition_talk1")));
 		this.talk.setTransform(67, 600-440-114);
+		this.afterTalk = view.addChild(new createjs.Bitmap(preload.getResult("aftermath_talk1")));
+		this.afterTalk.setTransform(197, 600-434-124);
+		this.afterTalk.alpha = 0;
 		
 		this.help1 = view.addChild(new createjs.Bitmap(preload.getResult("help1")));
 		this.help1.setTransform(100, 600-259-111);
@@ -53,8 +56,10 @@ function(Player, Building1, ShoutBubble) {
 		this.help4.setTransform(25, 600-26-65);
 		this.help5 = view.addChild(new createjs.Bitmap(preload.getResult("help5")));
 		this.help5.setTransform(220, 600-38-33);
+		this.help8 = view.addChild(new createjs.Bitmap(preload.getResult("help8")));
+		this.help8.setTransform(76, 600-254-73);
 		
-		var bubble = this.bubble = new ShoutBubble(2000, preload);
+		var bubble = this.bubble = new ShoutBubble(1500, preload);
 		view.addChild(bubble);
 	};
 	
@@ -87,11 +92,13 @@ function(Player, Building1, ShoutBubble) {
 		this.help3.visible = false;
 		this.help4.visible = false;
 		this.help5.visible = false;
+		this.help8.visible = false
 		switch(level) {
 			case 1: this.help1.visible = this.help5.visible = true; break;
 			case 2: this.help2.visible = true; break;
 			case 3: this.help3.visible = true; break;
 			case 4: this.help4.visible = true; break;
+			case 5: this.help8.visible = true; break;
 		}
 	}
 
@@ -139,6 +146,9 @@ function(Player, Building1, ShoutBubble) {
 			s.scaleX = s.scaleY = 1;
 			createjs.Tween.get(s).to({alpha:0, scaleX:1.4, scaleY:1.2}, 20000);
 		});
+		this.help8.alpha = 0;
+		createjs.Tween.get(this.help8).wait(2000+3000).to({alpha:1}, 500);
+		createjs.Tween.get(this.afterTalk).wait(2000).to({alpha:1}, 4000).to({alpha:0}, 4000);
 	};
 	
 	DemolitionState.prototype.leftButton = function() {

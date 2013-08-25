@@ -16,6 +16,7 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			{id: "eyelid_top", src:"img/eyelid_top.png"},
 			{id: "demolition", src:"img/demolition.png"},
 			{id: "demolition_talk1", src:"img/demolition_talk1.png"},
+			{id: "aftermath_talk1", src:"img/aftermath_talk1.png"},
 			{id: "b1", src:"img/b1.png"},
 			{id: "b1i", src:"img/b1i.png"},
 			{id: "b1d", src:"img/b1d.png"},
@@ -50,6 +51,7 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			{id: "help5", src:"img/help5.png"},
 			{id: "help6", src:"img/help6.png"},
 			{id: "help7", src:"img/help7.png"},
+			{id: "help8", src:"img/help8.png"},
 		]);
 		
 		function handleComplete() {

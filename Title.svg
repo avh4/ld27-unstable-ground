@@ -3828,7 +3828,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -5025,7 +5025,10 @@
          style="font-size:72px">I keep doing this job...</tspan></text>
     <g
        id="g21180"
-       transform="translate(32.857143,32.857143)">
+       transform="translate(32.857143,32.857143)"
+       inkscape:export-filename="/Users/ld27/Desktop/Projects/LD27/help6.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <text
          xml:space="preserve"
          style="font-size:32px;font-style:italic;font-variant:normal;font-weight:300;font-stretch:condensed;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Avenir Next Condensed;-inkscape-font-specification:'Avenir Next Condensed, Light Italic Condensed'"
