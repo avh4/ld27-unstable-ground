@@ -1,10 +1,11 @@
 define(["ShoutBubble"],
 function(ShoutBubble) {
 	
-	function DarkState(preload, blast) {
+	function DarkState(dyns, preload, blast) {
 		var th = this;
 		this.t = 0;
 		this.blast = blast;
+		this.dyns = dyns;
 		var view = this.view = new createjs.Container();
 		
 		var eyelid = new createjs.Bitmap(preload.getResult("eyelid_top"));
@@ -29,8 +30,15 @@ function(ShoutBubble) {
 		
 		var l = this.l = main.addChild(new createjs.Bitmap(preload.getResult("dl1")));
 		l.x = -8000+800; l.y = 0;
-		l.vx = 12;
+		l.vx = 10;
 		this.hitBitmap = new createjs.Bitmap(preload.getResult("dl1"));
+		
+		var flash = this.flash = main.addChild(new createjs.Bitmap(preload.getResult("flash")));
+		flash.visible = false;
+		flash.setTransform(dyns[0].x - 242/2, dyns[0].y - 238/2);
+		var flashWhite = this.flashWhite = main.addChild(new createjs.Shape());
+		flashWhite.graphics.beginFill("white").drawRect(0, 0, 800, 600);
+		flashWhite.visible = false;
 		
 		var player = new createjs.Shape();
 		player.graphics.beginFill("#880000").drawRect(-34/2, -60, 34, 60);
@@ -67,7 +75,7 @@ function(ShoutBubble) {
 		this.t += 1/60;
 		var dx = Math.sin(this.t*60/3.5) - 0.5;
 		dx *= (dx < 0) ? 8 : 16;
-		this.player.baseX = 700 - (600 * this.t/10);
+		this.player.baseX = 700 - (600 * this.t/12);
 		this.player.x = this.player.baseX + ((this.player.vy == 0) ? dx : 0);
 		
 		var alphaThreshold = 1;
@@ -92,11 +100,16 @@ function(ShoutBubble) {
 		var s = 10 - Math.floor(this.t);
 		if (s > 0) this.bubble.shout(s);
 		
-		if (s <= 0) {
-			this.blast();
+		if (this.t > 10 && !this.hasFlashed) {
+			this.flash.visible = true;
+			createjs.Tween.get(this.flash).to({alpha:0}, 100);
+			this.flashWhite.visible = true;
+			createjs.Tween.get(this.flashWhite).to({alpha:0}, 50);
+			this.hasFlashed = true;
 		}
 		
-		if (this.t > 10) {
+		if (this.t > 12) {
+			this.blast();
 			createjs.Tween.get(this.eyelid).to({y:-631}, 400);
 			createjs.Tween.get(this.main).to({alpha:0}, 300);
 		}

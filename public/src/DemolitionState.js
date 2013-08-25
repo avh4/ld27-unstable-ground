@@ -24,6 +24,7 @@ function(Player, Building1, ShoutBubble) {
 		dyn1.graphics.beginFill("pink").drawRect(-15, -20, 30, 30);
 		dyn1.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
 		dyn1.isPlaced = false;
+		this.dyns = [dyn1];
 		
 		var player = this.player = view.addChild(new createjs.Shape());
 		player.graphics.beginFill("#ff0000").drawRect(-34/2, -60, 34, 60);

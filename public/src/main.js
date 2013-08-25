@@ -30,6 +30,7 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			{id: "c4", src:"img/c4.png"},
 			{id: "c5", src:"img/c5.png"},
 			{id: "dl1", src:"img/DL1.png"},
+			{id: "flash", src:"img/flash.png"},
 			{id: "smoke1", src:"img/smoke1.png"},
 			{id: "smoke2", src:"img/smoke2.png"},
 			{id: "job1", src:"img/job1.png"},
@@ -87,23 +88,30 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 				lastState = undefined;
 			}
 			
+			function makeThinking(dyns) {
+				return new ThinkingState(preload, function() { lastState.blast(); pop(); });
+			}
+			
+			function makeDark(dyns) {
+				return new DarkState(dyns, preload, function() { lastState.blast(); pop(); })
+			}
+			
 			var buildings = [Building1, Building2];
 			var darks = [
-				new ThinkingState(preload, function() { lastState.blast(); pop(); }),
-				new DarkState(preload, function() { lastState.blast(); pop(); })
+				// new ThinkingState(preload, function() { lastState.blast(); pop(); }),
+				makeDark
 			];
 			
 			var nextLevel;
 			nextLevel = function() {
 				var b = new (buildings.shift())();
 				var dark = darks.shift();
-				function toThinking() { push(dark); };
+				function toThinking() { push(dark(state.dyns)); };
 				function toDemolition() { switchTo(new DemolitionState(b, preload, toThinking, nextLevel)); };
 				function toJob() { switchTo(new JobState(preload, toDemolition))}
 				toJob();
 			}
 			function toTitle() { switchTo(new TitleState(preload, nextLevel)); };
-			// var darkState = new DarkState(preload);
 			
 			toTitle();
 			
