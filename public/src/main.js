@@ -38,6 +38,10 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			{id: "bubble_2", src:"img/bubble_2.png"},
 			{id: "bubble_1", src:"img/bubble_1.png"},
 			{id: "thinking1", src:"img/thinking1.png"},
+			{id: "help1", src:"img/help1.png"},
+			{id: "help2", src:"img/help2.png"},
+			{id: "help3", src:"img/help3.png"},
+			{id: "help4", src:"img/help4.png"},
 		]);
 		
 		function handleComplete() {

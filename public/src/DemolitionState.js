@@ -11,27 +11,22 @@ function(Player, Building1, ShoutBubble) {
 		var view = this.view = new createjs.Container();
 
 		var background = new createjs.Bitmap(preload.getResult("demolition"));
-		this.view.addChild(background);
+		view.addChild(background);
 		
-		var safeZone = this.safeZone = new createjs.Shape();
+		var safeZone = this.safeZone = view.addChild(new createjs.Shape());
 		safeZone.graphics.beginFill("green").drawRect(0, 500, 200, 30);
-		this.view.addChild(safeZone);
 
-		b1 = new createjs.Bitmap();
+		b1 = view.addChild(new createjs.Bitmap());
 		b1.x = 418 + 1; b1.y = 200 + 2;
-		this.view.addChild(b1);
 		
-		var dyn1 = new createjs.Shape();
+		var dyn1 = this.dyn1 = view.addChild(new createjs.Shape());
 		dyn1.graphics.beginFill("pink").drawRect(-15, -20, 30, 30);
 		dyn1.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
 		dyn1.isPlaced = false;
-		this.view.addChild(dyn1);
-		this.dyn1 = dyn1;
 		
-		var player = this.player = new createjs.Shape();
+		var player = this.player = view.addChild(new createjs.Shape());
 		player.graphics.beginFill("#ff0000").drawRect(-34/2, -60, 34, 60);
 		player.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
-		this.view.addChild(player);
 
 		var smokes = this.smokes = [];
 		function addSmoke(img, x, y) {
@@ -44,6 +39,15 @@ function(Player, Building1, ShoutBubble) {
 		}
 		addSmoke("smoke1", 590, 600-256);
 		addSmoke("smoke2", 324, 600-231);
+		
+		this.help1 = view.addChild(new createjs.Bitmap(preload.getResult("help1")));
+		this.help1.setTransform(100, 600-259-111);
+		this.help2 = view.addChild(new createjs.Bitmap(preload.getResult("help2")));
+		this.help2.setTransform(470, 600-38-33);
+		this.help3 = view.addChild(new createjs.Bitmap(preload.getResult("help3")));
+		this.help3.setTransform(429, 600-38-33);
+		this.help4 = view.addChild(new createjs.Bitmap(preload.getResult("help4")));
+		this.help4.setTransform(25, 600-26-65);
 		
 		var bubble = this.bubble = new ShoutBubble(2000, preload);
 		view.addChild(bubble);
@@ -58,12 +62,33 @@ function(Player, Building1, ShoutBubble) {
 		this.dyn1.visible = false;
 		this.p.where = "OUTSIDE";
 		this.p.x = 400;
+
+		this.advanceHelpLevel(1);
+	}
+	
+	DemolitionState.prototype.advanceHelpLevel = function(level) {
+		if (this.helpLevel >= level) return;
+		this.helpLevel = level;
+		this.help1.visible = false;
+		this.help2.visible = false;
+		this.help3.visible = false;
+		this.help4.visible = false;
+		switch(level) {
+			case 1: this.help1.visible = true; break;
+			case 2: this.help2.visible = true; break;
+			case 3: this.help3.visible = true; break;
+			case 4: this.help4.visible = true; break;
+		}
 	}
 
 	DemolitionState.prototype.update = function() {
 		var player = this.player;
 		var p = this.p;
 		b1.image = this.preload.getResult(this.b.imageFor(p.where));
+		
+		if (p.x >= 560) this.advanceHelpLevel(2);
+		if (p.where == "INSIDE") this.advanceHelpLevel(3);
+		if (this.dyn1.isPlaced) this.advanceHelpLevel(4);
 	
 		if (!this.hasBlasted) {
 			player.x = p.x;
@@ -80,6 +105,7 @@ function(Player, Building1, ShoutBubble) {
 				}
 
 				if (this.safeTime <= 0) {
+					this.advanceHelpLevel(5);
 					this.switchToDark();
 				}
 			} else {
