@@ -13,8 +13,8 @@ define([], function() {
 		this.t1s = view.addChild(new createjs.Bitmap(preload.getResult("t1s"))).setTransform(113, 600-15-129);
 		this.t1t = view.addChild(new createjs.Bitmap(preload.getResult("t1t"))).setTransform(113, 600-15-129);
 		
-		this.help1 = view.addChild(new createjs.Bitmap(preload.getResult("help6")));
-		this.help1.setTransform(494, 600-255-76);
+		this.help = view.addChild(new createjs.Bitmap(preload.getResult("help6")));
+		this.help.setTransform(488, 600-253-33);
 	};
 	
 	TitleState.prototype.debug = function() {
@@ -27,6 +27,9 @@ define([], function() {
 		
 		this.t1t.alpha = 0;
 		createjs.Tween.get(this.t1t).to({alpha:1}, 4000);
+		
+		this.help.alpha = 0;
+		createjs.Tween.get(this.help).wait(3000).to({alpha:1}, 500);
 		
 		var eyelid = this.eyelid;
 		eyelid.y = -631;

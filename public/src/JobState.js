@@ -18,6 +18,9 @@ define([], function() {
 	JobState.prototype.start = function() {
 		this.text.alpha = 0;
 		createjs.Tween.get(this.text).to({alpha:1}, 4000).to({alpha:0}, 4000);
+		
+		this.help.alpha = 0;
+		createjs.Tween.get(this.help).wait(3000).to({alpha:1}, 500);
 	}
 	
 	JobState.prototype.update = function() {
