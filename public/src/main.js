@@ -99,11 +99,12 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			}
 			
 			var buildings = [
-			// Building1, 
-			// Building2,
+			Building1, 
+			Building2,
 			Building3];
 			var darks = [
-			// makeThinking, 
+			makeThinking, 
+			makeDark,
 			makeDark];
 			
 			var nextLevel;
