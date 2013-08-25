@@ -64,7 +64,7 @@ function(Player, Building1, ShoutBubble, PlayerSprite) {
 		this.help8.setTransform(76, 600-254-73);
 		this.help8.visible = false;
 		this.help9 = view.addChild(new createjs.Bitmap(preload.getResult("help9")));
-		this.help9.setTransform(145, 600-489);
+		this.help9.setTransform(45, 600-489);
 		this.help9.visible = false;
 		
 		var bubble = this.bubble = new ShoutBubble(1500, preload);

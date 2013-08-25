@@ -89,24 +89,26 @@ function(ShoutBubble, PlayerSprite) {
 			this.player.dx += (10 - this.player.x);
 			this.player.x = 10;
 		}
-		var open = this.nearestOpen(-this.l.x, this.player.x, this.player.y);
-		if (open != Math.floor(this.player.x)) {
-			this.player.dx -= Math.floor(this.player.x - open);
-			this.player.x = open;
-		}
-		if (this.player.x > 790) {
-			// this.dead();
-			console.log("DEAD");
-		}
-		
+
 		var hitX = this.player.x - this.l.x;
-		groundY = this.nearestGround(hitX, this.player.y)
+		var groundY = this.nearestGround(hitX, this.player.y)
 		
 		this.player.vy += 1;
 		this.player.y += this.player.vy;
 		if (this.player.y > groundY) {
 			this.player.vy = 0;
 			this.player.y = groundY;
+		}
+
+		var open = this.nearestOpen(-this.l.x, this.player.x, this.player.y);
+		if (open != Math.floor(this.player.x)) {
+			console.log({open: open, x: this.player.x});
+			this.player.dx -= Math.floor(this.player.x - open);
+			this.player.x = open;
+		}
+		if (this.player.x > 790) {
+			// this.dead();
+			console.log("DEAD");
 		}
 		
 		var s = 10 - Math.floor(this.t);
