@@ -125,15 +125,12 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			
 			toTitle();
 			
-			var debug = new createjs.Text("Debug Info");
-			debug.color = "white";
-			stage.addChild(debug);
-			
 			createjs.Ticker.setFPS(60);
 			createjs.Ticker.addListener(stage);
 			createjs.Ticker.addEventListener("tick", function() { 
 				state.update();
-				debug.text = state.debug();
+				
+				document.getElementById("debug").innerText = state.debug();
 			});
 			
 			keypress.combo("right", function() { state.rightButton() });

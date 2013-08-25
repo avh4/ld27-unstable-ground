@@ -24,11 +24,18 @@ define([], function() {
 	};
 	
 	Building2.prototype.blast = function(dyns) {
-		if (dyns[0].x >= 560) {
-			this.isDestroyed = true;
-		} else {
-			this.fail = "b2fbc";
-		}
+		var a = false;
+		var b = false;
+		dyns.forEach(function(dyn) {
+			if (dyn.where == "INSIDE" && dyn.x >= 450 && dyn.x <= 500) a = true;
+			if (dyn.where == "L2"     && dyn.x >= 450 && dyn.x <= 500) a = true;
+			if (dyn.where == "INSIDE" && dyn.x >= 570 && dyn.x <= 620) b = true;
+			if (dyn.where == "L2"     && dyn.x >= 570 && dyn.x <= 620) b = true;
+		});
+		if (a && b) this.isDestroyed = true;
+		else if (a) this.fail = "b2fl";
+		else if (b) this.fail = "b2fr";
+		else this.fail = "b2fbc";
 	}
 	
 	Building2.prototype.maxX = function(where) {

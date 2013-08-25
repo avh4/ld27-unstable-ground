@@ -210,6 +210,7 @@ function(Player, Building1, ShoutBubble) {
 				var dyn = this.dyns[i];
 				if (!dyn.isPlaced) {
 					dyn.setTransform(this.player.x - dyn.regX, this.player.y - dyn.regY - 30);
+					dyn.where = this.p.where;
 					dyn.visible = true;
 					dyn.isPlaced = true;
 					break;

@@ -5,6 +5,7 @@ var nodeReporters = require('jasmine-node/lib/jasmine-node/reporter').jasmineNod
 var specs = [
     'test/player_spec.js'
     , 'test/Building1_spec.js'
+    , 'test/Building2_spec.js'
 ]
 
 // set up require.js to play nicely with the test environment

@@ -1,10 +1,10 @@
-var Building1 = require('Building1');
+var Building2 = require('Building2');
 
-describe('Building1', function() {
+describe('Building2', function() {
 	var subject;
 	
 	beforeEach(function() {
-		subject = new Building1();
+		subject = new Building2();
 	});
 	
 	describe("blasting in the center", function() {
