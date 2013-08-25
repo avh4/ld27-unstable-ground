@@ -3,17 +3,18 @@ define([], function() {
 	function TitleState(preload, proceed) {
 		var th = this;
 		this.proceed = proceed;
-		this.view = new createjs.Container();
+		var view = this.view = new createjs.Container();
 		
 		this.view.addChild(new createjs.Bitmap(preload.getResult("title")));
 		
-		var eyelid = this.eyelid = new createjs.Bitmap(preload.getResult("eyelid_top"));
+		var eyelid = this.eyelid = view.addChild(new createjs.Bitmap(preload.getResult("eyelid_top")));
 		eyelid.y = -631;
-		this.view.addChild(eyelid);
-		this.eyelid = eyelid;
 
-		this.t1s = this.view.addChild(new createjs.Bitmap(preload.getResult("t1s"))).setTransform(113, 600-15-129);
-		this.view.addChild(new createjs.Bitmap(preload.getResult("t1t"))).setTransform(113, 600-15-129);		
+		this.t1s = view.addChild(new createjs.Bitmap(preload.getResult("t1s"))).setTransform(113, 600-15-129);
+		this.t1t = view.addChild(new createjs.Bitmap(preload.getResult("t1t"))).setTransform(113, 600-15-129);
+		
+		this.help1 = view.addChild(new createjs.Bitmap(preload.getResult("help6")));
+		this.help1.setTransform(494, 600-255-76);
 	};
 	
 	TitleState.prototype.debug = function() {
@@ -23,6 +24,9 @@ define([], function() {
 	TitleState.prototype.start = function() {
 		this.t1s.alpha = 0.4;
 		createjs.Tween.get(this.t1s, {loop: true}).to({alpha:0.8}, 1500).to({alpha:0.4}, 1500);
+		
+		this.t1t.alpha = 0;
+		createjs.Tween.get(this.t1t).to({alpha:1}, 4000);
 		
 		var eyelid = this.eyelid;
 		eyelid.y = -631;

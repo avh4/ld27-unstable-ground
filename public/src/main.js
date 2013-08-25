@@ -44,6 +44,8 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			{id: "help3", src:"img/help3.png"},
 			{id: "help4", src:"img/help4.png"},
 			{id: "help5", src:"img/help5.png"},
+			{id: "help6", src:"img/help6.png"},
+			{id: "help7", src:"img/help7.png"},
 		]);
 		
 		function handleComplete() {
