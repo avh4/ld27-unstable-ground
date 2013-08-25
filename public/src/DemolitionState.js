@@ -2,11 +2,12 @@ define(["Player", "Building1", "ShoutBubble"],
 function(Player, Building1, ShoutBubble) {
 	var safeMax = 3;
 	
-	function DemolitionState(preload, switchToDark) {
+	function DemolitionState(building, preload, switchToDark, nextLevel) {
 		this.p = new Player();
-		this.b = new Building1();
+		this.b = building;
 		this.preload = preload;
 		this.switchToDark = switchToDark;
+		this.nextLevel = nextLevel;
 		
 		var view = this.view = new createjs.Container();
 
@@ -17,7 +18,7 @@ function(Player, Building1, ShoutBubble) {
 		safeZone.graphics.beginFill("green").drawRect(0, 500, 200, 30);
 
 		b1 = view.addChild(new createjs.Bitmap());
-		b1.x = 418 + 1; b1.y = 200 + 2;
+		b1.x = building.x; b1.y = building.y;
 		
 		var dyn1 = this.dyn1 = view.addChild(new createjs.Shape());
 		dyn1.graphics.beginFill("pink").drawRect(-15, -20, 30, 30);
@@ -71,7 +72,7 @@ function(Player, Building1, ShoutBubble) {
 		this.safeTime = safeMax;
 		this.dyn1.visible = false;
 		this.p.where = "OUTSIDE";
-		this.p.x = 400;
+		this.p.x = this.b.startX;
 		
 		this.talk.alpha = 0;
 		createjs.Tween.get(this.talk).to({alpha: 1}, 3000).to({alpha:0}, 3000);
@@ -92,7 +93,8 @@ function(Player, Building1, ShoutBubble) {
 		this.help3.visible = false;
 		this.help4.visible = false;
 		this.help5.visible = false;
-		this.help8.visible = false
+		this.help8.visible = false;
+		if (!this.b.tutorial) return;
 		switch(level) {
 			case 1: this.help1.visible = this.help5.visible = true; break;
 			case 2: this.help2.visible = true; break;
@@ -152,25 +154,35 @@ function(Player, Building1, ShoutBubble) {
 	};
 	
 	DemolitionState.prototype.leftButton = function() {
-		this.p.leftButton();
+		this.p.x -= 10;
+		var min = this.b.minX(this.p.where);
+		if (this.p.x < min) this.p.x = min;
 	};
 	
 	DemolitionState.prototype.rightButton = function() {
-		this.p.rightButton();
+		this.p.x += 10;
+		var max = this.b.maxX(this.p.where);
+		if (this.p.x > max) this.p.x = max;
 	};
 	
 	DemolitionState.prototype.upButton = function() {
-		this.p.upButton();
+		var to = this.b.up(this.p.where, this.p.x);
+		if (to) this.p.where = to;
 	};
 	
 	DemolitionState.prototype.downButton = function() {
-		this.p.downButton();
+		var to = this.b.down(this.p.where, this.p.x);
+		if (to) this.p.where = to;
 	};
 	
 	DemolitionState.prototype.spaceButton = function() {
-		this.dyn1.x = this.player.x; this.dyn1.y = this.player.y;
-		this.dyn1.visible = true;
-		this.dyn1.isPlaced = true;
+		if (!this.hasBlasted) {
+			this.dyn1.x = this.player.x; this.dyn1.y = this.player.y;
+			this.dyn1.visible = true;
+			this.dyn1.isPlaced = true;
+		} else {
+			this.nextLevel();
+		}
 	}
 	
 	return DemolitionState;

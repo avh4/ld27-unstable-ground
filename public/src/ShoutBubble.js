@@ -3,7 +3,7 @@ define([], function() {
 		this.delay = delay;
 		this.preload = preload;
 		this.hasShouted = false;
-		this.x = -64; this.y = 600-205-415;
+		this.x = -64; this.y = 600-205-415 - 20;
 	}
 	
 	ShoutBubble.prototype = new createjs.Bitmap();
