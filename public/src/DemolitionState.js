@@ -40,6 +40,9 @@ function(Player, Building1, ShoutBubble) {
 		addSmoke("smoke1", 590, 600-256);
 		addSmoke("smoke2", 324, 600-231);
 		
+		this.talk = view.addChild(new createjs.Bitmap(preload.getResult("demolition_talk1")));
+		this.talk.setTransform(67, 600-440-114);
+		
 		this.help1 = view.addChild(new createjs.Bitmap(preload.getResult("help1")));
 		this.help1.setTransform(100, 600-259-111);
 		this.help2 = view.addChild(new createjs.Bitmap(preload.getResult("help2")));
@@ -48,6 +51,8 @@ function(Player, Building1, ShoutBubble) {
 		this.help3.setTransform(429, 600-38-33);
 		this.help4 = view.addChild(new createjs.Bitmap(preload.getResult("help4")));
 		this.help4.setTransform(25, 600-26-65);
+		this.help5 = view.addChild(new createjs.Bitmap(preload.getResult("help5")));
+		this.help5.setTransform(220, 600-38-33);
 		
 		var bubble = this.bubble = new ShoutBubble(2000, preload);
 		view.addChild(bubble);
@@ -62,6 +67,14 @@ function(Player, Building1, ShoutBubble) {
 		this.dyn1.visible = false;
 		this.p.where = "OUTSIDE";
 		this.p.x = 400;
+		
+		this.talk.alpha = 0;
+		createjs.Tween.get(this.talk).to({alpha: 1}, 3000).to({alpha:0}, 3000);
+		
+		this.help1.alpha = 0;
+		createjs.Tween.get(this.help1).wait(4000).to({alpha:1}, 500);
+		this.help5.alpha = 0;
+		createjs.Tween.get(this.help5).wait(6000).to({alpha:1}, 500);
 
 		this.advanceHelpLevel(1);
 	}
@@ -73,8 +86,9 @@ function(Player, Building1, ShoutBubble) {
 		this.help2.visible = false;
 		this.help3.visible = false;
 		this.help4.visible = false;
+		this.help5.visible = false;
 		switch(level) {
-			case 1: this.help1.visible = true; break;
+			case 1: this.help1.visible = this.help5.visible = true; break;
 			case 2: this.help2.visible = true; break;
 			case 3: this.help3.visible = true; break;
 			case 4: this.help4.visible = true; break;
