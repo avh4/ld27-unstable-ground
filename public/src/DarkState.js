@@ -118,6 +118,7 @@ function(ShoutBubble, PlayerSprite) {
 			this.flashWhite.visible = true;
 			createjs.Tween.get(this.flashWhite).to({alpha:.3}, 50).to({alpha:0}, 1500);
 			this.hasFlashed = true;
+			createjs.Sound.play("s_explosion", {interrupt:createjs.Sound.INTERRUPT_NONE, volume:1});
 		}
 		
 		if (this.t > 12) {

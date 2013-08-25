@@ -69,6 +69,8 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			{id:"m_demolition", src:"demolition.mp3"},
 			{id:"m_dark", src:"dark.mp3"},
 			{id:"m_special", src:"special.mp3"},
+			
+			{id:"s_explosion", src:"explosion.mp3"},
 		]);
 		
 		function handleComplete() {
