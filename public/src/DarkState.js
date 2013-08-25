@@ -5,17 +5,16 @@ function(ShoutBubble) {
 		var th = this;
 		this.t = 0;
 		this.blast = blast;
-		this.view = new createjs.Container();
+		var view = this.view = new createjs.Container();
 		
 		var eyelid = new createjs.Bitmap(preload.getResult("eyelid_top"));
 		eyelid.y = -631;
 		this.view.addChild(eyelid);
 		this.eyelid = eyelid;
 		
-		this.main = new createjs.Container();
-		this.main.visible = false;
-		this.main.alpha = 0;
-		this.view.addChild(this.main);
+		var main = this.main = view.addChild(new createjs.Container());
+		main.visible = false;
+		main.alpha = 0;
 
 		this.clouds = [];
 		function addCloud(img, x, y, vx) {
@@ -23,16 +22,15 @@ function(ShoutBubble) {
 			c.x = x; c.y = y;
 			c.vx = vx;
 			th.clouds.push(c);
-			th.main.addChild(c);
+			main.addChild(c);
 		}
 		addCloud("c2", -117, 600-255-278, 5);
 		addCloud("c4", -227, 600- 96-265, 10);
 		
-		var l = new createjs.Bitmap(preload.getResult("dl1"));
+		var l = this.l = main.addChild(new createjs.Bitmap(preload.getResult("dl1")));
 		l.x = -8000+800; l.y = 0;
 		l.vx = 12;
-		this.l = l;
-		this.main.addChild(l);
+		this.hitBitmap = new createjs.Bitmap(preload.getResult("dl1"));
 		
 		var player = new createjs.Shape();
 		player.graphics.beginFill("#880000").drawRect(-34/2, -60, 34, 60);
@@ -66,18 +64,30 @@ function(ShoutBubble) {
 		});
 		this.l.x += this.l.vx;
 		
-		this.player.vy += 1;
-		this.player.y += this.player.vy;
-		if (this.player.y > 500) {
-			this.player.vy = 0;
-			this.player.y = 500;
-		}
-		
 		this.t += 1/60;
 		var dx = Math.sin(this.t*60/3.5) - 0.5;
 		dx *= (dx < 0) ? 8 : 16;
 		this.player.baseX = 700 - (600 * this.t/10);
 		this.player.x = this.player.baseX + ((this.player.vy == 0) ? dx : 0);
+		
+		var alphaThreshold = 1;
+		var hitX = this.player.x - this.l.x;
+		this.hitBitmap.cache(hitX, 0, 1, 600);
+		var hitData = this.hitBitmap.cacheCanvas.getContext('2d').getImageData(0, 0, 1, 600);
+		var groundY = this.player.y;
+		while (hitData.data[groundY*4+3] < alphaThreshold && groundY < 600) {
+			groundY++;
+		}
+		while (hitData.data[groundY*4+3] >= alphaThreshold && groundY > 0) {
+			groundY--;
+		}
+		
+		this.player.vy += 1;
+		this.player.y += this.player.vy;
+		if (this.player.y > groundY) {
+			this.player.vy = 0;
+			this.player.y = groundY;
+		}
 		
 		var s = 10 - Math.floor(this.t);
 		if (s > 0) this.bubble.shout(s);
