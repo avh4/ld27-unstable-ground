@@ -1,5 +1,5 @@
-require(["domReady", "DemolitionState", "DarkState", "TitleState", "JobState", "ThinkingState", "Building1", "Building2", "Building3"],
-function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingState, Building1, Building2, Building3) {
+require(["domReady", "DemolitionState", "DarkState", "TitleState", "JobState", "ThinkingState", "Building1", "Building2", "Building3", "Building4"],
+function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingState, Building1, Building2, Building3, Building4) {
 	domReady(function() {
 
 		var preload = new createjs.LoadQueue();
@@ -28,6 +28,8 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			{id: "b2fbc", src:"img/b2fbc.png"},
 			{id: "b3", src:"img/b3.png"},
 			{id: "b3i", src:"img/b3i.png"},
+			{id: "b4", src:"img/b4.png"},
+			{id: "b4i", src:"img/b4i.png"},
 			{id: "c1", src:"img/c1.png"},
 			{id: "c2", src:"img/c2.png"},
 			{id: "c3", src:"img/c3.png"},
@@ -107,7 +109,8 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			var levels = [
 				// {b: Building1, d: makeThinking, dl: "dl1"},
 				// {b: Building2, d: makeDark, dl: "dl2"},
-				{b: Building3, d: makeDark, dl: "dl3"},
+				// {b: Building3, d: makeDark, dl: "dl3"},
+				{b: Building4, d: makeDark, dl: "dl4"},
 			]
 			
 			function restartLevel() {
