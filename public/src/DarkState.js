@@ -33,12 +33,15 @@ function(ShoutBubble) {
 		l.vx = 10;
 		this.hitBitmap = new createjs.Bitmap(preload.getResult("dl1"));
 		
-		var flash = this.flash = main.addChild(new createjs.Bitmap(preload.getResult("flash")));
-		flash.visible = false;
-		flash.setTransform(dyns[0].x - 242/2, dyns[0].y - 238/2);
+		var flash = this.flash = main.addChild(new createjs.Container());
+		// flash.visible = false;
 		var flashWhite = this.flashWhite = main.addChild(new createjs.Shape());
 		flashWhite.graphics.beginFill("white").drawRect(0, 0, 800, 600);
 		flashWhite.visible = false;
+		dyns.forEach(function(dyn) {
+			var f = flash.addChild(new createjs.Bitmap(preload.getResult("flash")));
+			f.setTransform(dyn.x - 242/2, dyn.y - 238/2);
+		});
 		
 		var player = new createjs.Shape();
 		player.graphics.beginFill("#880000").drawRect(-34/2, -60, 34, 60);

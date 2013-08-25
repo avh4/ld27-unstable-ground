@@ -4,6 +4,7 @@ define([], function() {
 		this.x = 226;
 		this.y = 600-45-477;
 		this.startX = 200;
+		this.dyns = 2;
 	}
 	
 	Building2.prototype.yFor = function(where) {

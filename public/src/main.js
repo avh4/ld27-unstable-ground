@@ -96,11 +96,12 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 				return new DarkState(dyns, preload, function() { lastState.blast(); pop(); })
 			}
 			
-			var buildings = [Building1, Building2];
+			var buildings = [
+			// Building1, 
+			Building2];
 			var darks = [
-				// new ThinkingState(preload, function() { lastState.blast(); pop(); }),
-				makeDark
-			];
+			// makeThinking, 
+			makeDark];
 			
 			var nextLevel;
 			nextLevel = function() {

@@ -5,6 +5,7 @@ define([], function() {
 		this.y = 200 + 2;
 		this.startX = 400;
 		this.tutorial = true;
+		this.dyns = 1;
 	}
 	
 	Building1.prototype.yFor = function(where) {

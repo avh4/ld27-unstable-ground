@@ -20,11 +20,14 @@ function(Player, Building1, ShoutBubble) {
 		b1 = view.addChild(new createjs.Bitmap());
 		b1.x = building.x; b1.y = building.y;
 		
-		var dyn1 = this.dyn1 = view.addChild(new createjs.Shape());
-		dyn1.graphics.beginFill("pink").drawRect(-15, -20, 30, 30);
-		dyn1.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
-		dyn1.isPlaced = false;
-		this.dyns = [dyn1];
+		var dyns = this.dyns = [];
+		for (var i = 0; i < building.dyns; i++) {
+			var dyn = view.addChild(new createjs.Shape());
+			dyn.graphics.beginFill("pink").drawRect(-15, -20, 30, 30);
+			dyn.graphics.beginFill("#000000").drawCircle(-1, -1, 3, 3);
+			dyn.isPlaced = false;
+			dyns.push(dyn);
+		}
 		
 		var player = this.player = view.addChild(new createjs.Shape());
 		player.graphics.beginFill("#ff0000").drawRect(-34/2, -60, 34, 60);
@@ -71,9 +74,14 @@ function(Player, Building1, ShoutBubble) {
 	
 	DemolitionState.prototype.start = function() {
 		this.safeTime = safeMax;
-		this.dyn1.visible = false;
 		this.p.where = "OUTSIDE";
 		this.p.x = this.b.startX;
+		
+		var i = 0;
+		this.dyns.forEach(function(dyn) {
+			dyn.setTransform(30 + i*40, 30);
+			i++;
+		});
 		
 		this.talk.alpha = 0;
 		createjs.Tween.get(this.talk).to({alpha: 1}, 3000).to({alpha:0}, 3000);
@@ -112,13 +120,17 @@ function(Player, Building1, ShoutBubble) {
 		
 		if (p.x >= 560) this.advanceHelpLevel(2);
 		if (p.where == "INSIDE") this.advanceHelpLevel(3);
-		if (this.dyn1.isPlaced) this.advanceHelpLevel(4);
+		var allDynsPlaced = true;
+		this.dyns.forEach(function(dyn) {
+			if (!dyn.isPlaced) allDynsPlaced = false;
+		});
+		if (allDynsPlaced) this.advanceHelpLevel(4);
 	
 		if (!this.hasBlasted) {
 			player.x = p.x;
 			player.y = this.b.yFor(p.where);
 
-			if (this.dyn1.isPlaced) {
+			if (allDynsPlaced) {
 				this.safeZone.visible = true;
 				if (player.x <= 200) {
 					this.safeTime -= 1/60;
@@ -136,13 +148,12 @@ function(Player, Building1, ShoutBubble) {
 				this.safeZone.visible = false;
 			}
 		} else {
-			
 		}
 	};
 	
 	DemolitionState.prototype.blast = function() {
 		this.hasBlasted = true;
-		this.b.blast([this.dyn1]);
+		this.b.blast(this.dyns);
 		this.smokes.forEach(function (s) {
 			s.visible = true;
 			s.alpha = 1;
@@ -152,6 +163,10 @@ function(Player, Building1, ShoutBubble) {
 		this.help8.alpha = 0;
 		createjs.Tween.get(this.help8).wait(2000+3000).to({alpha:1}, 500);
 		createjs.Tween.get(this.afterTalk).wait(2000).to({alpha:1}, 4000).to({alpha:0}, 4000);
+		
+		this.dyns.forEach(function(dyn) {
+			dyn.visible = false;
+		});
 	};
 	
 	DemolitionState.prototype.leftButton = function() {
@@ -178,9 +193,15 @@ function(Player, Building1, ShoutBubble) {
 	
 	DemolitionState.prototype.spaceButton = function() {
 		if (!this.hasBlasted) {
-			this.dyn1.x = this.player.x; this.dyn1.y = this.player.y;
-			this.dyn1.visible = true;
-			this.dyn1.isPlaced = true;
+			for(var i = 0; i < this.dyns.length; i++) {
+				var dyn = this.dyns[i];
+				if (!dyn.isPlaced) {
+					dyn.setTransform(this.player.x, this.player.y);
+					dyn.visible = true;
+					dyn.isPlaced = true;
+					break;
+				}
+			}
 		} else {
 			this.nextLevel();
 		}
