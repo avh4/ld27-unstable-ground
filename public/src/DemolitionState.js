@@ -5,6 +5,7 @@ function(Player, Building1, ShoutBubble, PlayerSprite) {
 	function DemolitionState(building, preload, switchToDark, nextLevel, restart) {
 		this.p = new Player();
 		this.b = building;
+		this.music = "demolition";
 		this.preload = preload;
 		this.switchToDark = switchToDark;
 		this.nextLevel = nextLevel;

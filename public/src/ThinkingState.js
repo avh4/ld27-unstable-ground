@@ -3,6 +3,7 @@ function(ShoutBubble) {
 	
 	function ThinkingState(preload, blast) {
 		var th = this;
+		this.music = "dark";
 		this.t = 0;
 		this.blast = blast;
 		this.view = new createjs.Container();

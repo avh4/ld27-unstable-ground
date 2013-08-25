@@ -65,6 +65,10 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			{id: "help7", src:"img/help7.png"},
 			{id: "help8", src:"img/help8.png"},
 			{id: "help9", src:"img/help9.png"},
+			
+			{id:"m_demolition", src:"demolition.mp3"},
+			{id:"m_dark", src:"dark.mp3"},
+			{id:"m_special", src:"special.mp3"},
 		]);
 		
 		function handleComplete() {
@@ -78,23 +82,35 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			var state;
 			var lastState;
 			var darkState;
+			var lastMusic;
+			function updateMusic() {
+				var music = state.music || "special";
+				if (music != lastMusic) {
+					createjs.Sound.stop();
+					createjs.Sound.play("m_"+music, {interrupt:createjs.Sound.INTERRUPT_NONE, loop:-1, volume:0.4});
+					lastMusic = music;
+				}
+			}
 			function switchTo(s) {
 				stage.removeAllChildren();
 				state = s;
 				stage.addChild(state.view);
 				state.start();
+				updateMusic();
 			}
 			function push(s) {
 				lastState = state;
 				state = s;
 				stage.addChild(state.view);
 				state.start();
+				updateMusic();
 			}
 			function pop() {
 				stage.removeAllChildren();
 				state = lastState;
 				stage.addChild(state.view);
 				lastState = undefined;
+				updateMusic();
 			}
 			
 			function makeThinking(dl, dyns, dead) {

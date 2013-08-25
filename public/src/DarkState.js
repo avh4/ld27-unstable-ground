@@ -3,6 +3,7 @@ function(ShoutBubble, PlayerSprite) {
 	
 	function DarkState(dl, dyns, preload, blast, dead) {
 		var th = this;
+		this.music = "dark";
 		this.alphaThreshold = 1;
 		this.t = 0;
 		this.blast = blast;
