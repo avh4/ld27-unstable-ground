@@ -18,17 +18,35 @@ define([], function() {
 	
 	Building4.prototype.imageFor = function(where) {
 		if (this.fail) return this.fail;
-		// if (this.isDestroyed) return "b3d";
+		if (this.isDestroyed) return "b4d";
 		if (where == "OUTSIDE") return "b4";
 		return "b4i";
 	};
 	
 	Building4.prototype.blast = function(dyns) {
-		// if (dyns[0].x >= 560) {
-		// 	this.isDestroyed = true;
-		// } else {
-			// this.fail = "b2f";
-		// }
+		var a = false;
+		var b = false;
+		var c = false;
+		var d = false;
+		var x = false;
+		dyns.forEach(function(dyn) {
+			if (dyn.where == "INSIDE" && dyn.x >= 349 && dyn.x <= 469) a = true;
+			if (dyn.where == "L2"     && dyn.x >= 349 && dyn.x <= 469) a = true;
+			if (dyn.where == "INSIDE" && dyn.x >= 499 && dyn.x <= 599) b = true;
+			if (dyn.where == "L2"     && dyn.x >= 499 && dyn.x <= 599) b = true;
+			if (dyn.where == "L5"     && dyn.x >= 349 && dyn.x <= 469) c = true;
+			if (dyn.where == "L5"     && dyn.x >= 499 && dyn.x <= 599) d = true;
+			if (dyn.where != "OUTSIDE") x = true;
+		});
+		if (a && b && c && d) this.isDestroyed = true;
+		else if (a && b) this.fail = "b4fb";
+		else if (a) this.fail = "b4ffl";
+		else if (b) this.fail = "b4ffr";
+		else if (c) this.fail = "b4ftl";
+		else if (c) this.fail = "b4ftr";
+		else if (x) this.fail = "b3fi";
+		else this.fail = "b4";
+		console.log(this.fail);
 	}
 	
 	Building4.prototype.maxX = function(where) {

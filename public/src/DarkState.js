@@ -123,11 +123,11 @@ function(ShoutBubble, PlayerSprite) {
 			createjs.Sound.play("s_explosion", {interrupt:createjs.Sound.INTERRUPT_NONE, volume:1});
 		}
 		
-		if (this.t > 12) {
+		// if (this.t > 12) {
 			this.blast();
 			createjs.Tween.get(this.eyelid).to({y:-631}, 400);
 			createjs.Tween.get(this.main).to({alpha:0}, 300);
-		}
+		// }
 	}
 	
 	DarkState.prototype.leftButton = function() {

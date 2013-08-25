@@ -18,7 +18,7 @@ define([], function() {
 	
 	Building3.prototype.imageFor = function(where) {
 		if (this.fail) return this.fail;
-		// if (this.isDestroyed) return "b3d";
+		if (this.isDestroyed) return "b3d";
 		if (where == "OUTSIDE") return "b3";
 		return "b3i";
 	};
@@ -41,7 +41,6 @@ define([], function() {
 		else if (tl) this.fail = "b3ftl";
 		else if (d) this.fail = "b3ft";
 		else this.fail = "b3";
-		console.log(this.fail);
 	}
 	
 	Building3.prototype.maxX = function(where) {

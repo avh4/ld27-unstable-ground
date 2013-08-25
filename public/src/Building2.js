@@ -27,10 +27,10 @@ define([], function() {
 		var a = false;
 		var b = false;
 		dyns.forEach(function(dyn) {
-			if (dyn.where == "INSIDE" && dyn.x >= 450 && dyn.x <= 500) a = true;
-			if (dyn.where == "L2"     && dyn.x >= 450 && dyn.x <= 500) a = true;
-			if (dyn.where == "INSIDE" && dyn.x >= 570 && dyn.x <= 620) b = true;
-			if (dyn.where == "L2"     && dyn.x >= 570 && dyn.x <= 620) b = true;
+			if (dyn.where == "INSIDE" && dyn.x >= 420 && dyn.x <= 500) a = true;
+			if (dyn.where == "L2"     && dyn.x >= 420 && dyn.x <= 500) a = true;
+			if (dyn.where == "INSIDE" && dyn.x >= 550 && dyn.x <= 620) b = true;
+			if (dyn.where == "L2"     && dyn.x >= 550 && dyn.x <= 620) b = true;
 		});
 		if (a && b) this.isDestroyed = true;
 		else if (a) this.fail = "b2fl";

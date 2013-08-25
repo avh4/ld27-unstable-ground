@@ -10,6 +10,12 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 		preload.installPlugin(createjs.Sound);
 		preload.addEventListener("complete", handleComplete);
 		preload.loadManifest([
+			{id:"m_demolition", src:"demolition.mp3"},
+			{id:"m_dark", src:"dark.mp3"},
+			{id:"m_special", src:"special.mp3"},
+			
+			{id:"s_explosion", src:"explosion.mp3"},
+
 			{id: "title", src:"img/title.png"},
 			{id: "t1t", src:"img/t1t.png"},
 			{id: "t1s", src:"img/t1s.png"},
@@ -27,8 +33,14 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			{id: "b2i", src:"img/b2i.png"},
 			{id: "b2d", src:"img/b2d.png"},
 			{id: "b2fbc", src:"img/b2fbc.png"},
+			{id: "b2fl", src:"img/b2fr.png"},
+			{id: "b2fr", src:"img/b2fl.png"},
 			{id: "b3", src:"img/b3.png"},
 			{id: "b3i", src:"img/b3i.png"},
+			{id: "b3d", src:"img/b3d.png"},
+			{id: "b3ftl", src:"img/b3ftl.png"},
+			{id: "b3ftr", src:"img/b3ftr.png"},
+			{id: "b3ft", src:"img/b3ft.png"},
 			{id: "b4", src:"img/b4.png"},
 			{id: "b4i", src:"img/b4i.png"},
 			{id: "c1", src:"img/c1.png"},
@@ -66,12 +78,6 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			{id: "help7", src:"img/help7.png"},
 			{id: "help8", src:"img/help8.png"},
 			{id: "help9", src:"img/help9.png"},
-			
-			{id:"m_demolition", src:"demolition.mp3"},
-			{id:"m_dark", src:"dark.mp3"},
-			{id:"m_special", src:"special.mp3"},
-			
-			{id:"s_explosion", src:"explosion.mp3"},
 		]);
 		
 		function handleComplete() {
@@ -128,7 +134,7 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			
 			var levels = [
 				// {b: Building1, d: makeThinking, dl: "dl1"},
-				// {b: Building2, d: makeDark, dl: "dl2"},
+				{b: Building2, d: makeDark, dl: "dl2"},
 				{b: Building3, d: makeDark, dl: "dl3"},
 				{b: Building4, d: makeDark, dl: "dl4"},
 			]
