@@ -1,5 +1,5 @@
-require(["domReady", "DemolitionState", "DarkState", "TitleState", "JobState", "ThinkingState", "Building1", "Building2"],
-function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingState, Building1, Building2) {
+require(["domReady", "DemolitionState", "DarkState", "TitleState", "JobState", "ThinkingState", "Building1", "Building2", "Building3"],
+function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingState, Building1, Building2, Building3) {
 	domReady(function() {
 
 		var preload = new createjs.LoadQueue();
@@ -25,6 +25,7 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			{id: "b2", src:"img/b2.png"},
 			{id: "b2i", src:"img/b2i.png"},
 			{id: "b2d", src:"img/b2d.png"},
+			{id: "b3", src:"img/b3.png"},
 			{id: "c1", src:"img/c1.png"},
 			{id: "c2", src:"img/c2.png"},
 			{id: "c3", src:"img/c3.png"},
@@ -99,7 +100,8 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			
 			var buildings = [
 			// Building1, 
-			Building2];
+			// Building2,
+			Building3];
 			var darks = [
 			// makeThinking, 
 			makeDark];
