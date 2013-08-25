@@ -25,6 +25,7 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			{id: "b2", src:"img/b2.png"},
 			{id: "b2i", src:"img/b2i.png"},
 			{id: "b2d", src:"img/b2d.png"},
+			{id: "b2fbc", src:"img/b2fbc.png"},
 			{id: "b3", src:"img/b3.png"},
 			{id: "c1", src:"img/c1.png"},
 			{id: "c2", src:"img/c2.png"},
@@ -104,7 +105,7 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			
 			var levels = [
 				// {b: Building1, d: makeThinking, dl: "dl1"},
-				// {b: Building2, d: makeDark, dl: "dl2"},
+				{b: Building2, d: makeDark, dl: "dl2"},
 				{b: Building3, d: makeDark, dl: "dl3"},
 			]
 			

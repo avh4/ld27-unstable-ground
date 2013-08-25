@@ -98,7 +98,8 @@ function(ShoutBubble) {
 			this.player.x = open;
 		}
 		if (this.player.x > 790) {
-			this.dead();
+			// this.dead();
+			console.log("DEAD");
 		}
 		
 		var hitX = this.player.x - this.l.x;
@@ -156,7 +157,7 @@ function(ShoutBubble) {
 		}
 		while (hitData.data[groundY*4+3] >= this.alphaThreshold && groundY > 0) {
 			groundY--;
-			if (groundY - y < -4) break;
+			if (groundY - y < -10) break;
 		}
 		return groundY;
 	}

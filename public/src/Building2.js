@@ -27,7 +27,7 @@ define([], function() {
 		if (dyns[0].x >= 560) {
 			this.isDestroyed = true;
 		} else {
-			this.fail = "b2f";
+			this.fail = "b2fbc";
 		}
 	}
 	
