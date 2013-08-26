@@ -62,6 +62,9 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			{id: "smoke1", src:"img/smoke1.png"},
 			{id: "smoke2", src:"img/smoke2.png"},
 			{id: "job1", src:"img/job1.png"},
+			{id: "job2", src:"img/job2.png"},
+			{id: "job3", src:"img/job3.png"},
+			{id: "job4", src:"img/job4.png"},
 			{id: "job_t1", src:"img/job_t1.png"},
 			{id: "bubble_clear", src:"img/bubble_clear.png"},
 			{id: "bubble_wait", src:"img/bubble_wait.png"},
@@ -140,18 +143,18 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			}
 			
 			var levels = [
-				// {b: Building1, d: makeThinking, dl: "dl1"},
-				// {b: Building2, d: makeDark, dl: "dl2"},
-				// {b: Building3, d: makeDark, dl: "dl3"},
-				{b: Building4, d: makeDark, dl: "dl4"},
+				{b: Building1, d: makeThinking, dl: "dl1", job: "job1", jtext: "job_t1", atalk: "aftermath_talk1"},
+				{b: Building2, d: makeDark, dl: "dl2", job: "job2", dtalk: "demolition_talk1"},
+				{b: Building3, d: makeDark, dl: "dl3", job: "job3"},
+				{b: Building4, d: makeDark, dl: "dl4", job: "job4"},
 			]
 			
 			function restartLevel() {
 				var b = new (levels[0].b)();
 				var dark = levels[0].d;
 				function toDark() { push(dark(levels[0].dl, state.dyns, restartLevel)); };
-				function toDemolition() { switchTo(new DemolitionState(b, preload, toDark, nextLevel, restartLevel)); };
-				function toJob() { switchTo(new JobState(preload, toDemolition))}
+				function toDemolition() { switchTo(new DemolitionState(levels[0].dtalk, levels[0].atalk, b, preload, toDark, nextLevel, restartLevel)); };
+				function toJob() { switchTo(new JobState(levels[0].job, levels[0].jtext, preload, toDemolition))}
 				toJob();
 			}
 			function nextLevel() {

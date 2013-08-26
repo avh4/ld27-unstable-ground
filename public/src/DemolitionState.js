@@ -2,7 +2,7 @@ define(["Player", "Building1", "ShoutBubble", "PlayerSprite"],
 function(Player, Building1, ShoutBubble, PlayerSprite) {
 	var safeMax = 3;
 	
-	function DemolitionState(building, preload, switchToDark, nextLevel, restart) {
+	function DemolitionState(dtalk, atalk, building, preload, switchToDark, nextLevel, restart) {
 		this.p = new Player();
 		this.b = building;
 		this.music = "demolition";
@@ -44,11 +44,15 @@ function(Player, Building1, ShoutBubble, PlayerSprite) {
 		addSmoke("smoke1", 590, 600-256);
 		addSmoke("smoke2", 324, 600-231);
 		
-		this.talk = view.addChild(new createjs.Bitmap(preload.getResult("demolition_talk1")));
-		this.talk.setTransform(67, 600-440-114);
-		this.afterTalk = view.addChild(new createjs.Bitmap(preload.getResult("aftermath_talk1")));
-		this.afterTalk.setTransform(197, 600-434-124);
-		this.afterTalk.alpha = 0;
+		if (dtalk) {
+			this.talk = view.addChild(new createjs.Bitmap(preload.getResult(dtalk)));
+			this.talk.setTransform(67, 600-440-114);
+		}
+		if (atalk) {
+			this.afterTalk = view.addChild(new createjs.Bitmap(preload.getResult(atalk)));
+			this.afterTalk.setTransform(197, 600-434-124);
+			this.afterTalk.alpha = 0;
+		}
 		
 		this.help1 = view.addChild(new createjs.Bitmap(preload.getResult("help1")));
 		this.help1.setTransform(100, 600-259-111);
@@ -87,13 +91,15 @@ function(Player, Building1, ShoutBubble, PlayerSprite) {
 			i++;
 		});
 		
-		this.talk.alpha = 0;
-		createjs.Tween.get(this.talk).to({alpha: 1}, 3000).to({alpha:0}, 3000);
+		if (this.talk) {
+			this.talk.alpha = 0;
+			createjs.Tween.get(this.talk).to({alpha: 1}, 3000).to({alpha:0}, 3000);
+		}
 		
 		this.help1.alpha = 0;
-		createjs.Tween.get(this.help1).wait(4000).to({alpha:1}, 500);
+		createjs.Tween.get(this.help1).to({alpha:1}, 500);
 		this.help5.alpha = 0;
-		createjs.Tween.get(this.help5).wait(6000).to({alpha:1}, 500);
+		createjs.Tween.get(this.help5).wait(1500).to({alpha:1}, 500);
 
 		this.advanceHelpLevel(1);
 	}
@@ -170,8 +176,12 @@ function(Player, Building1, ShoutBubble, PlayerSprite) {
 		if (this.b.isDestroyed) {
 			this.help8.visible = true;
 			this.help8.alpha = 0;
-			createjs.Tween.get(this.help8).wait(2000+3000).to({alpha:1}, 500);
-			createjs.Tween.get(this.afterTalk).wait(2000).to({alpha:1}, 4000).to({alpha:0}, 4000);
+			if (this.afterTalk) {
+				createjs.Tween.get(this.help8).wait(2000+3000).to({alpha:1}, 500);
+				createjs.Tween.get(this.afterTalk).wait(2000).to({alpha:1}, 4000).to({alpha:0}, 4000);
+			} else {
+				createjs.Tween.get(this.help8).wait(2000).to({alpha:1}, 500);				
+			}
 		} else {
 			this.advanceHelpLevel(6);
 			this.help9.visible = true;

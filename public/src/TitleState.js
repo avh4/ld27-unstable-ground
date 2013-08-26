@@ -10,11 +10,11 @@ define([], function() {
 		var eyelid = this.eyelid = view.addChild(new createjs.Bitmap(preload.getResult("eyelid_top")));
 		eyelid.y = -631;
 
-		this.t1s = view.addChild(new createjs.Bitmap(preload.getResult("t1s"))).setTransform(113, 600-15-129);
-		this.t1t = view.addChild(new createjs.Bitmap(preload.getResult("t1t"))).setTransform(113, 600-15-129);
+		this.t1s = view.addChild(new createjs.Bitmap(preload.getResult("t1s"))).setTransform(113, 600-292-129);
+		this.t1t = view.addChild(new createjs.Bitmap(preload.getResult("t1t"))).setTransform(113, 600-292-129);
 		
 		this.help = view.addChild(new createjs.Bitmap(preload.getResult("help6")));
-		this.help.setTransform(488, 600-253-33);
+		this.help.setTransform(488, 600-155-33);
 	};
 	
 	TitleState.prototype.debug = function() {

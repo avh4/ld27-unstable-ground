@@ -3,7 +3,7 @@ function(ShoutBubble) {
 	
 	function ThinkingState(preload, blast) {
 		var th = this;
-		this.music = "dark";
+		this.music = "demolition";
 		this.t = 0;
 		this.blast = blast;
 		var view = this.view = new createjs.Container();
@@ -23,7 +23,7 @@ function(ShoutBubble) {
 		addCloud("c4", -227, 600- 96-265, 10);
 		
 		var text = this.text = new createjs.Bitmap(preload.getResult("thinking1"));
-		this.view.addChild(text.setTransform(80, 600-166-236));
+		this.view.addChild(text.setTransform(15, 600-84-321));
 		
 		addCloud("c1",  237, 0, 15);
 		addCloud("c5",  153, 600- 60-102, 15);
