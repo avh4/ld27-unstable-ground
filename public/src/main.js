@@ -43,6 +43,13 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			{id: "b3ft", src:"img/b3ft.png"},
 			{id: "b4", src:"img/b4.png"},
 			{id: "b4i", src:"img/b4i.png"},
+			{id: "b4d", src:"img/b4d.png"},
+			{id: "b4fi", src:"img/b4fi.png"},
+			{id: "b4fb", src:"img/b4fb.png"},
+			{id: "b4ffl", src:"img/b4ffl.png"},
+			{id: "b4ffr", src:"img/b4ffr.png"},
+			{id: "b4ftl", src:"img/b4ftl.png"},
+			{id: "b4ftr", src:"img/b4ftr.png"},
 			{id: "c1", src:"img/c1.png"},
 			{id: "c2", src:"img/c2.png"},
 			{id: "c3", src:"img/c3.png"},
@@ -134,8 +141,8 @@ function(domReady, DemolitionState, DarkState, TitleState, JobState, ThinkingSta
 			
 			var levels = [
 				// {b: Building1, d: makeThinking, dl: "dl1"},
-				{b: Building2, d: makeDark, dl: "dl2"},
-				{b: Building3, d: makeDark, dl: "dl3"},
+				// {b: Building2, d: makeDark, dl: "dl2"},
+				// {b: Building3, d: makeDark, dl: "dl3"},
 				{b: Building4, d: makeDark, dl: "dl4"},
 			]
 			

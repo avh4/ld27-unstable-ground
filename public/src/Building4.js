@@ -2,7 +2,7 @@ define([], function() {
 	function Building4() {
 		this.isDestroyed = false;
 		this.x = 0;
-		this.y = 600-1056;
+		this.y = 0;
 		this.startX = 60;
 		this.dyns = 4;
 	}
@@ -44,7 +44,7 @@ define([], function() {
 		else if (b) this.fail = "b4ffr";
 		else if (c) this.fail = "b4ftl";
 		else if (c) this.fail = "b4ftr";
-		else if (x) this.fail = "b3fi";
+		else if (x) this.fail = "b4fi";
 		else this.fail = "b4";
 		console.log(this.fail);
 	}
